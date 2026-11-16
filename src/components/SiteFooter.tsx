@@ -2,7 +2,6 @@ import Link from "next/link";
 import { nav, site, socialLinks, whatsappLink } from "@/content/site";
 import { services } from "@/content/services";
 import { Logo } from "./Logo";
-import { ThemeSwitch } from "./ThemeSwitch";
 
 export function SiteFooter() {
   const socials = socialLinks();
@@ -93,10 +92,7 @@ export function SiteFooter() {
         <p>
           © {year} {site.name}. All rights reserved.
         </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <ThemeSwitch />
-          <p className="tracking-[0.2em] uppercase">{site.tagline}</p>
-        </div>
+        <p className="tracking-[0.2em] uppercase">{site.tagline}</p>
       </div>
     </footer>
   );

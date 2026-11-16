@@ -68,13 +68,8 @@ export const site = {
   /** Set NEXT_PUBLIC_WHATSAPP_NUMBER (digits only, intl format) to show WhatsApp links. */
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",
 
-  /**
-   * Default colour theme: "dark" (original) or "bright".
-   * Set NEXT_PUBLIC_THEME=bright (or the THEME repo variable on GitHub Pages)
-   * to make bright the default. Visitors can preview the other theme with
-   * ?theme=bright / ?theme=dark, or with the switch in the footer.
-   */
-  theme: (process.env.NEXT_PUBLIC_THEME === "bright" ? "bright" : "dark") as "bright" | "dark",
+  /** Colour theme — the site uses the bright theme throughout. */
+  theme: "bright" as "bright" | "dark",
 
   /** The studio's own mantra, from the existing About page. */
   mantra: ["Imagine.", "Create.", "Inspire.", "Succeed.", "Repeat."],

@@ -47,8 +47,7 @@ export const viewport: Viewport = {
   themeColor: site.theme === "bright" ? "#fbfaf7" : "#0b0c14",
 };
 
-/** Applies ?theme=bright|dark (remembered per browser) before first paint — no flash. */
-const themeScript = `(function(){try{var d=document.documentElement,q=new URLSearchParams(location.search).get("theme");if(q==="bright"||q==="dark"){localStorage.setItem("candies-theme",q)}var t=localStorage.getItem("candies-theme");if(t==="bright"||t==="dark"){d.dataset.theme=t}}catch(e){}})();`;
+
 
 const orgJsonLd = {
   "@context": "https://schema.org",
@@ -71,9 +70,8 @@ const orgJsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
-    <html lang="en" data-theme={site.theme} suppressHydrationWarning>
+    <html lang="en" data-theme={site.theme}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
