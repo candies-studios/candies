@@ -1,41 +1,54 @@
 "use client";
 
-import { useImageFallback } from "@/lib/useImageFallback";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { asset } from "@/lib/asset";
 
 /**
- * Candies Studio logo lockup: the original candy-ball mark (pulled from the
- * old site into /media/brand/candies-mark.png) + wordmark set in the brand
- * display face so it reads on both dark and light backgrounds.
- * If the mark file is missing, a striped candy disc is drawn in CSS.
+ * The official Candies Studio logo (candy ball + "CANDIES" wordmark).
+ * Files are produced by `npm run assets:pull`:
+ *   1. candies-logo-web.png   – trimmed, 1200px wide (sharp, retina-crisp)
+ *   2. candies-logo-small.png – original 221×50 from the old site
+ * If neither file exists, a typeset fallback is drawn so the header never breaks.
  */
-export function Logo({ className, compact = false }: { className?: string; compact?: boolean }) {
-  const { ok: markOk, ref, onError } = useImageFallback();
-  return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span className="relative block size-8 shrink-0 overflow-hidden rounded-full sm:size-9">
-        {markOk ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={asset("/media/brand/candies-mark.png")}
-            alt=""
-            width={36}
-            height={36}
-            className="size-full object-cover"
-            ref={ref}
-            onError={onError}
-          />
-        ) : (
-          <span aria-hidden className="candy-stripe block size-full rounded-full" />
-        )}
+const SOURCES = ["/media/brand/candies-logo-web.png", "/media/brand/candies-logo-small.png"];
+
+export function Logo({ className, size = "md" }: { className?: string; size?: "md" | "lg" }) {
+  const [idx, setIdx] = useState(0);
+  const ref = useRef<HTMLImageElement>(null);
+
+  // Catch load errors that happened before hydration
+  useEffect(() => {
+    const img = ref.current;
+    if (img && img.complete && img.naturalWidth === 0) setIdx((i) => i + 1);
+  }, [idx]);
+
+  const h = size === "lg" ? "h-9 sm:h-11" : "h-7 sm:h-8";
+
+  if (idx < SOURCES.length) {
+    return (
+      <span className={cn("inline-flex items-center", className)}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          key={SOURCES[idx]}
+          ref={ref}
+          src={asset(SOURCES[idx])}
+          alt="Candies Studio"
+          width={1200}
+          height={163}
+          className={cn("block w-auto select-none", h)}
+          onError={() => setIdx((i) => i + 1)}
+          draggable={false}
+        />
       </span>
-      {!compact && (
-        <span className="flex flex-col leading-none">
-          <span className="display text-[1.15rem] tracking-[-0.02em] sm:text-[1.3rem]">Candies</span>
-          <span className="mt-0.5 text-[0.58rem] font-semibold uppercase tracking-[0.42em] opacity-70">Studio</span>
-        </span>
-      )}
+    );
+  }
+
+  // Fallback lockup (only if the logo files are missing)
+  return (
+    <span className={cn("inline-flex items-center gap-2", className)}>
+      <span aria-hidden className={cn("candy-stripe block aspect-square rounded-full", h)} />
+      <span className={cn("display flex items-center italic text-candy", size === "lg" ? "text-[2rem]" : "text-[1.55rem]")}>Candies</span>
       <span className="sr-only">Candies Studio</span>
     </span>
   );

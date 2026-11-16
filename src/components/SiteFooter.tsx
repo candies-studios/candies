@@ -13,7 +13,7 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden border-t border-fg/10 bg-ink text-paper">
       <div className="container-x grid gap-14 py-20 lg:grid-cols-12 lg:py-24">
         <div className="lg:col-span-5">
-          <Logo />
+          <Logo size="lg" />
           <p className="mt-6 max-w-sm text-paper/60">{site.description}</p>
           <a
             href={`mailto:${site.email}`}

@@ -72,5 +72,21 @@ for (const [rel, url] of Object.entries(assets)) {
     failed++;
   }
 }
+/* ── Web-ready logo ───────────────────────────────────────────
+   The master logo is 10470×2370 (~600 KB) with lots of empty
+   padding. Trim it and resize to a crisp 1200px-wide PNG for
+   the header/footer. Uses sharp (installed with Next.js). */
+const master = join(ROOT, "brand/candies-logo.png");
+const webLogo = join(ROOT, "brand/candies-logo-web.png");
+if ((await exists(master)) && (force || !(await exists(webLogo)))) {
+  try {
+    const { default: sharp } = await import("sharp");
+    await sharp(master).trim().resize({ width: 1200 }).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(webLogo);
+    console.log("✓ brand/candies-logo-web.png (trimmed & resized)");
+  } catch (err) {
+    console.error(`✗ Could not optimise logo (${err.message}) — the site will use candies-logo-small.png`);
+  }
+}
+
 console.log(`\nDone: ${ok} downloaded, ${skipped} already present, ${failed} failed.`);
 if (failed) process.exitCode = 1;
