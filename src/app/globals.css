@@ -77,6 +77,10 @@
     text-transform: uppercase;
   }
   .display-xl { font-size: clamp(2.6rem, 8.4vw, 9.5rem); }
+  /* Hero headline: scales with BOTH width and height so all four lines
+     (including "forward.") are visible on first load on any screen. */
+  .hero-title { font-size: clamp(2.3rem, min(9.6vw, 7.4svh), 4.5rem); }
+  @media (min-width: 640px) { .hero-title { font-size: clamp(2.4rem, min(6.4vw, 9.2svh), 7.25rem); } }
   .display-lg { font-size: clamp(2.3rem, 6.2vw, 6.5rem); }
   .display-md { font-size: clamp(1.9rem, 4.2vw, 4.25rem); }
   .display-sm { font-size: clamp(1.5rem, 2.6vw, 2.5rem); }

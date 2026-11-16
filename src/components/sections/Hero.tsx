@@ -18,7 +18,7 @@ export function Hero() {
       {/* legibility veil on small screens */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[60%] bg-gradient-to-t from-ink via-ink/80 to-transparent lg:hidden" />
 
-      <div className="container-x flex flex-1 flex-col justify-end pb-14 pt-[46svh] sm:pb-20 lg:justify-center lg:pt-40">
+      <div className="container-x flex flex-1 flex-col justify-end pb-14 pt-[46svh] sm:pb-14 lg:justify-center lg:pb-10 lg:pt-28">
         <Reveal y={12}>
           <p className="eyebrow text-candy-soft">Independent creative &amp; digital studio</p>
         </Reveal>
@@ -27,7 +27,7 @@ export function Hero() {
           id="hero-title"
           immediate
           delay={0.15}
-          className="hero-title display display-xl mt-7 max-w-[15ch] lg:mix-blend-difference"
+          className="hero-title display mt-6 max-w-[15ch] sm:max-w-none lg:mt-7 lg:mix-blend-difference"
           lines={[
             "We turn ideas into",
             "experiences that",
@@ -36,7 +36,7 @@ export function Hero() {
             </span>,
           ]}
         />
-        <div className="mt-10 grid gap-8 md:mt-12 md:grid-cols-12 md:items-end">
+        <div className="mt-8 grid gap-8 md:grid-cols-12 md:items-end lg:mt-[min(3rem,4svh)]">
           <Reveal delay={0.7} className="md:col-span-6 lg:col-span-5">
             <p className="lede text-paper/72">
               We are an independent creative and digital studio bringing together strategy, design, content and
