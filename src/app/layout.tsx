@@ -4,6 +4,7 @@ import "./globals.css";
 import { site } from "@/content/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { asset } from "@/lib/asset";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   icons: {
-    icon: [{ url: "/media/brand/candies-mark-192.png", sizes: "192x192", type: "image/png" }],
-    apple: "/media/brand/apple-touch-icon.png",
+    icon: [{ url: asset("/media/brand/candies-mark-192.png"), sizes: "192x192", type: "image/png" }],
+    apple: asset("/media/brand/apple-touch-icon.png"),
   },
   robots: { index: true, follow: true },
 };

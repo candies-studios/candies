@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import { ImageResponse } from "next/og";
 
 export const alt = "Candies Studio — We turn ideas into experiences that move brands forward.";

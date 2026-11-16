@@ -10,6 +10,7 @@ import { getService, services, studioEvents } from "@/content/services";
 import { publishedProjects } from "@/content/projects";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
+import { asset } from "@/lib/asset";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -157,7 +158,7 @@ export default async function ServicePage({ params }: Params) {
               {studioEvents.map((e) => (
                 <Reveal as="li" key={e.title} className="grid overflow-hidden rounded-[1.75rem] border border-ink/10 bg-white sm:grid-cols-[200px_1fr]">
                   <div className="relative aspect-[3/4] bg-ink sm:aspect-auto">
-                    <Image src={e.image} alt={`${e.title} poster`} fill sizes="200px" className="object-cover" />
+                    <Image src={asset(e.image)} alt={`${e.title} poster`} fill sizes="200px" className="object-cover" />
                   </div>
                   <div className="p-7">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">
@@ -186,7 +187,7 @@ export default async function ServicePage({ params }: Params) {
                 <li key={p.slug}>
                   <Link href={`/work/${p.slug}`} className="group block">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-ink-3">
-                      <Image src={p.cover} alt={p.title} fill sizes="33vw" className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                      <Image src={asset(p.cover)} alt={p.title} fill sizes="33vw" className="object-cover transition-transform duration-1000 group-hover:scale-105" />
                     </div>
                     <p className="mt-4 text-xs uppercase tracking-[0.18em] text-paper/45">{p.client}</p>
                     <p className="mt-1 text-lg font-semibold">{p.title}</p>

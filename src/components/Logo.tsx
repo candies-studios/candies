@@ -2,6 +2,7 @@
 
 import { useImageFallback } from "@/lib/useImageFallback";
 import { cn } from "@/lib/cn";
+import { asset } from "@/lib/asset";
 
 /**
  * Candies Studio logo lockup: the original candy-ball mark (pulled from the
@@ -17,7 +18,7 @@ export function Logo({ className, compact = false }: { className?: string; compa
         {markOk ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src="/media/brand/candies-mark.png"
+            src={asset("/media/brand/candies-mark.png")}
             alt=""
             width={36}
             height={36}

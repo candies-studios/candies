@@ -3,6 +3,7 @@
 import { useImageFallback } from "@/lib/useImageFallback";
 import type { Client } from "@/content/clients";
 import { cn } from "@/lib/cn";
+import { asset } from "@/lib/asset";
 
 /** Displays a client logo in its original colours & proportions; falls back to the name if the file is missing. */
 export function ClientLogo({ client, className }: { client: Client; className?: string }) {
@@ -12,7 +13,7 @@ export function ClientLogo({ client, className }: { client: Client; className?: 
       {ok ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={client.logo}
+          src={asset(client.logo)}
           alt={client.name}
           width={200}
           height={50}

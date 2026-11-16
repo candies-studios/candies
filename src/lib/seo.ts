@@ -17,7 +17,7 @@ export function pageMetadata({
   return {
     title,
     description: desc,
-    alternates: { canonical: path },
+    alternates: { canonical: url },
     openGraph: {
       type: "website",
       url,

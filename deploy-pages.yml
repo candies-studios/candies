@@ -1,0 +1,68 @@
+# Builds the site as static files and publishes it to GitHub Pages.
+# One-time setup: repo Settings → Pages → Build and deployment → Source: "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - run: npm ci
+
+      # Pull genuine logo/team/client assets from the old site if they aren't committed yet
+      - name: Fetch brand assets
+        run: npm run assets:pull || echo "Some assets could not be fetched — continuing with fallbacks"
+
+      - name: Build static site
+        env:
+          STATIC_EXPORT: "true"
+          NEXT_PUBLIC_STATIC_EXPORT: "true"
+          # "/candies" for https://<org>.github.io/candies — empty for a custom domain
+          NEXT_PUBLIC_BASE_PATH: ${{ vars.CUSTOM_DOMAIN && '' || steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.CUSTOM_DOMAIN && format('https://{0}', vars.CUSTOM_DOMAIN) || steps.pages.outputs.base_url }}
+          # Contact form (Settings → Secrets and variables → Actions → Variables)
+          NEXT_PUBLIC_FORM_ENDPOINT: ${{ vars.FORM_ENDPOINT }}
+          NEXT_PUBLIC_FORM_ACCESS_KEY: ${{ vars.FORM_ACCESS_KEY }}
+          NEXT_PUBLIC_WHATSAPP_NUMBER: ${{ vars.WHATSAPP_NUMBER }}
+          NEXT_PUBLIC_GA_ID: ${{ vars.GA_ID }}
+        run: |
+          npm run build
+          node scripts/static-redirects.mjs
+          if [ -n "${{ vars.CUSTOM_DOMAIN }}" ]; then echo "${{ vars.CUSTOM_DOMAIN }}" > out/CNAME; fi
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

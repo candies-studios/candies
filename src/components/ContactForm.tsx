@@ -17,13 +17,21 @@ declare global {
 }
 
 const TURNSTILE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+/**
+ * Static hosting (GitHub Pages) has no server, so enquiries are sent to a form
+ * service instead (Formspree, Web3Forms, Getform, a Google Apps Script URL…).
+ * On a Node host (Vercel etc.) the built-in /api/enquiry route is used.
+ */
+const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+const FORM_ACCESS_KEY = process.env.NEXT_PUBLIC_FORM_ACCESS_KEY || ""; // e.g. Web3Forms access key
+const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
 
 const empty: Enquiry = { name: "", company: "", email: "", phone: "", country: "", service: "", budget: "", message: "" };
 
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "success" } | { kind: "error"; message: string };
 
-export function ContactForm({ defaultService }: { defaultService?: string }) {
-  const [values, setValues] = useState<Enquiry>({ ...empty, service: defaultService ?? "" });
+export function ContactForm() {
+  const [values, setValues] = useState<Enquiry>(empty);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof Enquiry, boolean>>>({});
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -36,6 +44,10 @@ export function ContactForm({ defaultService }: { defaultService?: string }) {
 
   useEffect(() => {
     startedAt.current = Date.now();
+    // Pre-select a service from ?service=Design links
+    const q = new URLSearchParams(window.location.search).get("service") || "";
+    const match = serviceOptions.find((o) => o.toLowerCase() === q.toLowerCase());
+    if (match) setValues((v) => ({ ...v, service: match }));
   }, []);
 
   const renderTurnstile = () => {
@@ -75,17 +87,45 @@ export function ContactForm({ defaultService }: { defaultService?: string }) {
     }
     setStatus({ kind: "sending" });
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          website: honeypot.current?.value ?? "",
-          startedAt: startedAt.current,
-          turnstileToken: token,
-        }),
-      });
-      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; errors?: FieldErrors };
+      let res: Response;
+      if (FORM_ENDPOINT) {
+        // External form service (static hosting)
+        if (honeypot.current?.value) throw new Error("spam");
+        if (Date.now() - startedAt.current < 3000) {
+          setStatus({ kind: "error", message: "That was fast! Please review your details and try again." });
+          return;
+        }
+        res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            ...(FORM_ACCESS_KEY ? { access_key: FORM_ACCESS_KEY } : {}),
+            subject: `New enquiry — ${data.company} (${data.service})`,
+            _subject: `New enquiry — ${data.company} (${data.service})`,
+            from_name: "Candies Studio website",
+            replyto: data.email,
+            _replyto: data.email,
+            ...data,
+          }),
+        });
+      } else if (IS_STATIC) {
+        setStatus({ kind: "error", message: `Our online form isn't connected yet. Please email us at ${site.email} — we'd love to hear from you.` });
+        return;
+      } else {
+        res = await fetch("/api/enquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...data,
+            website: honeypot.current?.value ?? "",
+            startedAt: startedAt.current,
+            turnstileToken: token,
+          }),
+        });
+      }
+      const raw = (await res.json().catch(() => ({}))) as { ok?: boolean; success?: boolean | string; error?: string; message?: string; errors?: FieldErrors };
+      // Normalise responses from different form services
+      const json = { ...raw, ok: raw.ok ?? (raw.success === true || raw.success === "true" || (FORM_ENDPOINT ? res.ok : undefined)) };
       if (res.ok && json.ok) {
         setStatus({ kind: "success" });
         setValues(empty);

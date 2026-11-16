@@ -2,7 +2,6 @@ import { ContactForm } from "@/components/ContactForm";
 import { Reveal, SplitLines } from "@/components/motion";
 import { LocalTime } from "@/components/LocalTime";
 import { site, socialLinks, whatsappLink } from "@/content/site";
-import { serviceOptions } from "@/lib/enquiry";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -14,9 +13,7 @@ export const metadata = pageMetadata({
 
 const tz: Record<string, string> = { IN: "Asia/Kolkata", AE: "Asia/Dubai", US: "America/Denver" };
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
-  const { service } = await searchParams;
-  const preset = serviceOptions.find((o) => o.toLowerCase() === (service || "").toLowerCase());
+export default function ContactPage() {
   const wa = whatsappLink();
   const socials = socialLinks();
 
@@ -41,7 +38,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         <div className="mt-16 grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal delay={0.2}>
-              <ContactForm defaultService={preset} />
+              <ContactForm />
             </Reveal>
           </div>
 

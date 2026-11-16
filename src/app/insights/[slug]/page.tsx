@@ -5,11 +5,14 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { getPost, publishedPosts } from "@/content/insights";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
+import { asset } from "@/lib/asset";
 
 type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return publishedPosts().map((p) => ({ slug: p.slug }));
+  const params = publishedPosts().map((p) => ({ slug: p.slug }));
+  // Static export needs at least one path; the placeholder renders the 404 page.
+  return params.length ? params : [{ slug: "_" }];
 }
 export const dynamicParams = false;
 
@@ -53,7 +56,7 @@ export default async function PostPage({ params }: Params) {
         {p.cover && (
           <div className="container-x mt-14">
             <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-ink">
-              <Image src={p.cover} alt="" fill priority sizes="100vw" className="object-cover" />
+              <Image src={asset(p.cover)} alt="" fill priority sizes="100vw" className="object-cover" />
             </div>
           </div>
         )}

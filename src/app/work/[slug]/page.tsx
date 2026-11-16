@@ -8,11 +8,14 @@ import { ArrowIcon } from "@/components/Button";
 import { getProject, publishedProjects } from "@/content/projects";
 import { getService } from "@/content/services";
 import { pageMetadata } from "@/lib/seo";
+import { asset } from "@/lib/asset";
 
 type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return publishedProjects().map((p) => ({ slug: p.slug }));
+  const params = publishedProjects().map((p) => ({ slug: p.slug }));
+  // Static export needs at least one path; the placeholder renders the 404 page.
+  return params.length ? params : [{ slug: "_" }];
 }
 export const dynamicParams = false;
 
@@ -52,7 +55,7 @@ export default async function ProjectPage({ params }: Params) {
       <section className="bg-ink pb-24 text-paper">
         <div className="container-x">
           <MaskReveal className="relative aspect-[16/9] rounded-[2rem] bg-ink-3">
-            <Image src={p.cover} alt={`${p.client} — ${p.title}`} fill priority sizes="100vw" className="object-cover" />
+            <Image src={asset(p.cover)} alt={`${p.client} — ${p.title}`} fill priority sizes="100vw" className="object-cover" />
           </MaskReveal>
         </div>
       </section>
@@ -118,7 +121,7 @@ export default async function ProjectPage({ params }: Params) {
           <div className="container-x grid gap-6 md:grid-cols-2">
             {p.gallery.map((src, i) => (
               <MaskReveal key={src} className={`relative rounded-[1.75rem] bg-ink-3 ${i % 3 === 0 ? "aspect-[16/9] md:col-span-2" : "aspect-[4/5]"}`}>
-                <Image src={src} alt={`${p.title} — image ${i + 1}`} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
+                <Image src={asset(src)} alt={`${p.title} — image ${i + 1}`} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
               </MaskReveal>
             ))}
           </div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useImageFallback } from "@/lib/useImageFallback";
 import type { TeamMember } from "@/content/team";
+import { asset } from "@/lib/asset";
 
 const initials = (n: string) =>
   n
@@ -19,7 +20,7 @@ export function TeamCard({ member, index }: { member: TeamMember; index: number 
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-ink-3">
         {ok && member.photo ? (
           <Image
-            src={member.photo}
+            src={asset(member.photo)}
             alt={`${member.name}, ${member.role}`}
             fill
             sizes="(min-width:768px) 30vw, 50vw"

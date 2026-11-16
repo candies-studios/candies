@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/content/projects";
 import { TiltCard } from "./TiltCard";
 import { cn } from "@/lib/cn";
+import { asset } from "@/lib/asset";
 
 /** Filterable editorial portfolio grid. */
 export function WorkGrid({ projects, categories }: { projects: Project[]; categories: string[] }) {
@@ -49,7 +50,7 @@ export function WorkGrid({ projects, categories }: { projects: Project[]; catego
                 <TiltCard className="overflow-hidden rounded-[1.75rem]">
                   <div className="relative aspect-[4/3] bg-ink-3">
                     <Image
-                      src={p.cover}
+                      src={asset(p.cover)}
                       alt={`${p.client} — ${p.title}`}
                       fill
                       sizes="(min-width:768px) 50vw, 100vw"

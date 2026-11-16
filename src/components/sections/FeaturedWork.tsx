@@ -5,6 +5,7 @@ import { clients } from "@/content/clients";
 import { ButtonLink } from "../Button";
 import { MaskReveal, Reveal, SplitLines } from "../motion";
 import { TiltCard } from "../TiltCard";
+import { asset } from "@/lib/asset";
 
 /**
  * Featured work. Shows published case studies in an editorial layout.
@@ -53,7 +54,7 @@ export function FeaturedWork() {
                   <TiltCard className="rounded-[1.75rem]">
                     <MaskReveal className="relative aspect-[4/3] rounded-[1.75rem] bg-ink-3">
                       <Image
-                        src={p.cover}
+                        src={asset(p.cover)}
                         alt={`${p.client} — ${p.title}`}
                         fill
                         sizes="(min-width:768px) 55vw, 100vw"
