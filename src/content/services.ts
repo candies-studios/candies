@@ -1,6 +1,7 @@
 /**
  * SERVICES — the four capabilities from the existing site
- * (Design, Content, Digital Marketing, Events), rewritten for
+ * (Design, Content, Digital Marketing, Events) plus Websites & Applications,
+ * rewritten for
  * corporate decision-makers. Copy describes what clients receive;
  * it makes no claims about results.
  */
@@ -8,6 +9,8 @@ export type Service = {
   slug: string;
   index: string;
   title: string;
+  /** Optional compact label for tight spaces (capability cards, chips) */
+  shortTitle?: string;
   /** Short line for cards */
   summary: string;
   /** Large statement on the detail page */
@@ -132,8 +135,45 @@ export const services: Service[] = [
       "Digital strategy, social media, SEO, performance marketing and campaign management from Candies Studio — channels planned around your audience and goals.",
   },
   {
-    slug: "events",
+    slug: "websites-and-applications",
     index: "04",
+    title: "Websites & Applications",
+    shortTitle: "Web & Apps",
+    summary:
+      "Corporate websites, e-commerce, web applications, mobile apps, CMS platforms and ongoing support.",
+    headline: "Digital products that look the part — and work hard for the business.",
+    intro:
+      "Your website or app is often the first real conversation a customer has with your brand. We plan, design and build fast, secure and accessible digital products — from corporate websites and campaign microsites to e-commerce stores, customer portals and mobile applications. Design and engineering sit in the same team, so what gets approved is exactly what gets launched, and it stays easy for your team to update long after go-live.",
+    capabilities: ["Corporate websites", "E-commerce", "Web applications", "Mobile apps", "CMS & integrations", "Support & maintenance"],
+    deliverables: [
+      "Discovery, information architecture, sitemaps and user journeys",
+      "UI/UX design systems, interactive prototypes and usability testing",
+      "Responsive websites on modern stacks (Next.js, React) or CMS platforms such as WordPress, Webflow and Shopify",
+      "Web applications, dashboards and customer portals with secure logins",
+      "iOS and Android apps (cross-platform or native) and progressive web apps",
+      "Integrations — CRM, payment gateways, analytics, marketing automation and APIs",
+      "Technical SEO, performance optimisation and accessibility (WCAG) built in",
+      "Hosting setup, security updates, maintenance and ongoing enhancement retainers",
+    ],
+    benefits: [
+      { title: "Built to convert", body: "Clear journeys, fast load times and purposeful calls to action turn visitors into enquiries, sign-ups and sales." },
+      { title: "Easy to own", body: "A CMS your team can actually use, documented code and a clean hand-over — no dependency on us for every small change." },
+      { title: "Secure and scalable", body: "Modern architecture, best-practice security and performance budgets, so the platform grows with your business." },
+    ],
+    approach: [
+      { step: "Discover", body: "Goals, users, content and technical requirements mapped into a clear scope and roadmap." },
+      { step: "Design", body: "Wireframes, UI design and clickable prototypes reviewed with you before development starts." },
+      { step: "Build", body: "Agile development in sprints with staging previews, QA across devices and browsers, and content migration." },
+      { step: "Launch & grow", body: "Go-live, analytics, training and ongoing support — with improvements driven by real usage data." },
+    ],
+    accent: "#6046aa",
+    metaTitle: "Website Design & Development, Web Apps & Mobile Apps",
+    metaDescription:
+      "Corporate websites, e-commerce, web applications and mobile apps from Candies Studio — designed and built to be fast, secure, accessible and easy to manage.",
+  },
+  {
+    slug: "events",
+    index: "05",
     title: "Events",
     summary:
       "Corporate events, brand activations, product launches, event communication and experiential marketing.",

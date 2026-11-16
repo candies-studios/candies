@@ -58,7 +58,7 @@ export function Hero() {
         <Reveal delay={1.1} y={0}>
           <div className="flex items-center justify-between gap-6 border-t border-fg/10 py-5 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-paper/50">
             <span className="hidden sm:inline">{site.combinedExperienceYears}+ years of combined creative experience</span>
-            <span className="hidden md:inline">Design · Content · Digital · Events</span>
+            <span className="hidden md:inline">Design · Content · Digital · Web · Events</span>
             <a href="#intro" className="group inline-flex items-center gap-3 text-paper/70 hover:text-paper">
               Scroll
               <span className="relative block h-8 w-[1px] overflow-hidden bg-fg/15">

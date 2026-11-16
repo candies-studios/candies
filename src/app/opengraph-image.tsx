@@ -30,7 +30,7 @@ export default function OG() {
           <span>experiences that</span>
           <span style={{ color: "#a9b8e0" }}>move brands forward.</span>
         </div>
-        <div style={{ display: "flex", fontSize: 24, opacity: 0.6 }}>Design · Content · Digital Marketing · Events</div>
+        <div style={{ display: "flex", fontSize: 24, opacity: 0.6 }}>Design · Content · Digital · Web & Apps · Events</div>
       </div>
     ),
     size,

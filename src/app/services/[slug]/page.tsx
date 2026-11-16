@@ -69,7 +69,7 @@ export default async function ServicePage({ params }: Params) {
           <Reveal className="lg:col-span-5">
             <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-[2.5rem] bg-stage stage">
               <div aria-hidden className="absolute inset-0 opacity-60 blur-[80px]" style={{ background: `radial-gradient(circle at 60% 40%, ${s.accent}, transparent 60%)` }} />
-              <ServiceGlyph slug={s.slug} accent={s.accent} className="absolute inset-[16%]" />
+              <ServiceGlyph slug={s.slug} accent={s.accent} className="absolute inset-[12%]" />
             </div>
           </Reveal>
           <div className="lg:col-span-7">

@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 export function ServiceGlyph({ slug, accent, className }: { slug: string; accent: string; className?: string }) {
   const shade = `radial-gradient(circle at 30% 28%, rgba(255,255,255,0.75), transparent 34%), radial-gradient(circle at 70% 80%, rgba(0,0,0,0.45), transparent 55%), ${accent}`;
   return (
-    <div aria-hidden className={cn("relative aspect-square [perspective:800px]", className)}>
+    <div aria-hidden className={cn(className?.includes("absolute") ? "" : "relative", "aspect-square [perspective:800px]", className)}>
       {slug === "design" && (
         <div className="absolute inset-0 grid place-items-center [transform-style:preserve-3d] motion-safe:animate-[glyphspin_14s_linear_infinite]">
           {[0, 1, 2].map((i) => (
@@ -47,6 +47,42 @@ export function ServiceGlyph({ slug, accent, className }: { slug: string; accent
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {slug === "websites-and-applications" && (
+        <div className="absolute inset-0 [transform-style:preserve-3d] [transform:rotateX(14deg)_rotateY(-22deg)]">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className="absolute overflow-hidden rounded-[14%] border border-fg/25 motion-safe:animate-[glyphfloat_5s_ease-in-out_infinite]"
+              style={{
+                left: `${2 + i * 8}%`,
+                top: `${18 + i * 8}%`,
+                width: "60%",
+                height: "48%",
+                transform: `translateZ(${(i - 2) * 30}px)`,
+                background: i === 2 ? shade : `color-mix(in srgb, ${accent} ${18 + i * 14}%, transparent)`,
+                animationDelay: `${i * 0.3}s`,
+              }}
+            >
+              <div className="flex gap-[6%] px-[7%] pt-[6%]">
+                {[0, 1, 2].map((d) => (
+                  <span key={d} className="block aspect-square w-[7%] rounded-full bg-fg/60" />
+                ))}
+              </div>
+              {i === 2 && (
+                <div className="mt-[8%] space-y-[5%] px-[9%]">
+                  <span className="block h-[7px] w-3/5 rounded-full bg-white/80" />
+                  <span className="block h-[7px] w-2/5 rounded-full bg-white/50" />
+                </div>
+              )}
+            </div>
+          ))}
+          {/* phone */}
+          <div
+            className="absolute right-[6%] top-[34%] h-[50%] w-[24%] rounded-[22%] border border-fg/30 motion-safe:animate-[glyphfloat_4s_ease-in-out_infinite]"
+            style={{ background: shade, transform: "translateZ(16px)", animationDelay: "0.6s" }}
+          />
         </div>
       )}
       {slug === "events" && (

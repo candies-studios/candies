@@ -4,7 +4,7 @@ import { ServiceGlyph } from "../ServiceGlyph";
 import { ArrowIcon } from "../Button";
 import { Reveal, SplitLines } from "../motion";
 
-/** Four interactive capability panels — expanding columns on desktop, stacked cards on mobile. */
+/** Interactive capability panels — expanding columns on desktop, stacked cards on mobile. */
 export function Capabilities() {
   return (
     <section aria-labelledby="cap-title" className="relative overflow-hidden bg-ink text-paper section-y">
@@ -18,7 +18,7 @@ export function Capabilities() {
               id="cap-title"
               className="display display-lg mt-7"
               lines={[
-                "Four disciplines.",
+                "Five disciplines.",
                 <span key="2">
                   One <span className="serif-accent text-candy-soft">connected</span> studio.
                 </span>,
@@ -27,8 +27,8 @@ export function Capabilities() {
           </div>
           <Reveal className="lg:col-span-4" delay={0.1}>
             <p className="text-paper/65">
-              Full service means we have you covered from design and content right through to digital and live
-              experiences — with collaboration at the centre of everything we do.
+              Full service means we have you covered from design and content right through to digital, technology
+              and live experiences — with collaboration at the centre of everything we do.
             </p>
           </Reveal>
         </div>
@@ -59,7 +59,7 @@ export function Capabilities() {
                 />
 
                 <div className="mt-auto">
-                  <h3 className="display text-[clamp(1.8rem,2.6vw,2.6rem)]">{s.title}</h3>
+                  <h3 className="display text-[clamp(1.8rem,2.3vw,2.4rem)]">{s.shortTitle ?? s.title}</h3>
                   <p className="mt-3 max-w-md text-sm leading-relaxed text-paper/65 lg:line-clamp-2 lg:group-hover:line-clamp-none">
                     {s.summary}
                   </p>

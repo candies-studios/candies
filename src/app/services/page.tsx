@@ -23,14 +23,14 @@ export default function ServicesPage() {
         intro={
           <p>
             We&apos;re full service, which means we&apos;ve got you covered on design and content right through to
-            digital and events. Collaboration is central to everything we do.
+            digital, websites, apps and events. Collaboration is central to everything we do.
           </p>
         }
       >
         <nav aria-label="Services" className="mt-14 flex flex-wrap gap-2">
           {services.map((s) => (
             <a key={s.slug} href={`#${s.slug}`} className="rounded-full border border-fg/15 px-4 py-2 text-sm text-paper/80 transition-colors hover:border-fg/50 hover:text-paper">
-              {s.index} · {s.title}
+              {s.index} · {s.shortTitle ?? s.title}
             </a>
           ))}
         </nav>
@@ -49,7 +49,7 @@ export default function ServicesPage() {
               <Reveal className={`lg:col-span-5 ${light ? "lg:order-2" : ""}`}>
                 <div className="stage relative mx-auto aspect-square max-w-md overflow-hidden rounded-[2.5rem]" style={{ background: light ? "var(--color-stage)" : "var(--color-stage-2)" }}>
                   <div aria-hidden className="absolute inset-0 opacity-50 blur-[80px]" style={{ background: `radial-gradient(circle at 60% 40%, ${s.accent}, transparent 60%)` }} />
-                  <ServiceGlyph slug={s.slug} accent={s.accent} className="absolute inset-[18%]" />
+                  <ServiceGlyph slug={s.slug} accent={s.accent} className="absolute inset-[12%]" />
                   <span className="absolute left-6 top-6 text-sm font-semibold tracking-[0.2em] text-white/50">{s.index}</span>
                 </div>
               </Reveal>
@@ -87,13 +87,13 @@ export default function ServicesPage() {
       })}
 
       <section aria-label="All services" className="border-t border-fg/10 bg-ink text-paper">
-        <ul className="container-x grid divide-y divide-fg/10 py-6 md:grid-cols-4 md:divide-x md:divide-y-0">
+        <ul className="container-x grid divide-y divide-fg/10 py-6 md:grid-cols-5 md:divide-x md:divide-y-0">
           {services.map((s) => (
             <li key={s.slug}>
-              <Link href={`/services/${s.slug}`} className="group flex items-center justify-between gap-4 px-2 py-6 md:px-6">
+              <Link href={`/services/${s.slug}`} className="group flex items-center justify-between gap-4 px-2 py-6 md:px-4 lg:px-6">
                 <span>
                   <span className="block text-xs tracking-[0.2em] text-paper/40">{s.index}</span>
-                  <span className="mt-1 block text-lg font-semibold">{s.title}</span>
+                  <span className="mt-1 block text-lg font-semibold">{s.shortTitle ?? s.title}</span>
                 </span>
                 <ArrowIcon className="text-paper/50 transition-transform duration-500 group-hover:translate-x-1 group-hover:text-paper" />
               </Link>

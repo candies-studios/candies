@@ -1,6 +1,6 @@
 /** Shared enquiry schema + validation (used by the form AND the API route). */
 
-export const serviceOptions = ["Design", "Content", "Digital Marketing", "Events", "Multiple / Not sure yet"] as const;
+export const serviceOptions = ["Design", "Content", "Digital Marketing", "Websites & Applications", "Events", "Multiple / Not sure yet"] as const;
 
 export const budgetOptions = [
   "Under ₹5 lakh (≈ US$6k)",
