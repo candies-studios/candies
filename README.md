@@ -20,7 +20,34 @@ npm run dev           # http://localhost:3000
 
 This script downloads the **genuine assets** from the current WordPress site into `public/media/`: the logo and candy mark, favicons, all 9 team portraits, the 11 client logos and the event poster. **Commit `public/media/` after running it.** The site still works without these files (it shows monograms, client names and a CSS candy mark instead), but it is meant to ship with them.
 
-## 2. Deploy (recommended: Vercel)
+## 2. Deploy
+
+### Option A: GitHub Pages (already set up in this repo)
+
+`.github/workflows/deploy-pages.yml` builds a **static** version of the site and publishes it on every push to `main`.
+
+**One-time setup:**
+
+1. In the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**. Without this step, Pages just shows the README.
+2. Push to `main`, or run the workflow from the **Actions** tab. The site goes live at `https://<org>.github.io/<repo>/`.
+3. Set up the contact form. Static hosting has no server, so enquiries go to a form service. Go to **Settings → Secrets and variables → Actions → Variables** and add:
+   - `FORM_ENDPOINT`: for example, a [Formspree](https://formspree.io) form URL (`https://formspree.io/f/xxxx`), or `https://api.web3forms.com/submit`
+   - `FORM_ACCESS_KEY`: only needed for Web3Forms (your access key)
+   - Optional: `WHATSAPP_NUMBER`, `GA_ID`, and `CUSTOM_DOMAIN` (e.g. `www.candies.studio`, which writes the CNAME file and removes the `/repo` path prefix)
+
+   If no `FORM_ENDPOINT` is set, the form tells visitors to email create@candies.studio. It never pretends to send.
+4. The workflow also runs `assets:pull`, so the real logo, team photos and client logos are included even if you haven't committed them yet.
+
+The old WordPress URLs (`/about-us/`, `/contact-us/`, etc.) get small HTML redirect pages, because Pages can't do server redirects.
+
+Test the static build locally:
+
+```bash
+STATIC_EXPORT=true NEXT_PUBLIC_STATIC_EXPORT=true npm run build && node scripts/static-redirects.mjs
+npx serve out
+```
+
+### Option B: Vercel / Node hosting (full features)
 
 1. Push this repo to GitHub.
 2. In Vercel, choose **Import Project** and select the repo. The framework is detected automatically.

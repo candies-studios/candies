@@ -25,9 +25,26 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
 ];
 
-const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  poweredByHeader: false,
+/**
+ * STATIC_EXPORT=true builds a fully static site into /out (used for GitHub Pages).
+ * Static hosting can't run the /api/enquiry route or server redirects, so in that
+ * mode the contact form posts to NEXT_PUBLIC_FORM_ENDPOINT instead (see README).
+ */
+const isStatic = process.env.STATIC_EXPORT === "true";
+const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
+
+const staticConfig: NextConfig = {
+  output: "export",
+  basePath: basePath || undefined,
+  trailingSlash: true,
+  images: { unoptimized: true },
+  // `route.node.ts` (the server-only enquiry API) is excluded from static builds
+  pageExtensions: ["tsx", "ts"],
+};
+
+const serverConfig: NextConfig = {
+  basePath: basePath || undefined,
+  pageExtensions: ["tsx", "ts", "node.ts"],
   images: {
     formats: ["image/avif", "image/webp"],
   },
@@ -39,6 +56,12 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+};
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  ...(isStatic ? staticConfig : serverConfig),
 };
 
 export default nextConfig;
