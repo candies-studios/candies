@@ -48,6 +48,8 @@ jobs:
           NEXT_PUBLIC_FORM_ACCESS_KEY: ${{ vars.FORM_ACCESS_KEY }}
           NEXT_PUBLIC_WHATSAPP_NUMBER: ${{ vars.WHATSAPP_NUMBER }}
           NEXT_PUBLIC_GA_ID: ${{ vars.GA_ID }}
+          # "bright" or "dark" (default dark)
+          NEXT_PUBLIC_THEME: ${{ vars.THEME }}
         run: |
           npm run build
           node scripts/static-redirects.mjs

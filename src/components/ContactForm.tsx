@@ -54,7 +54,7 @@ export function ContactForm() {
     if (!TURNSTILE_KEY || !tsRef.current || !window.turnstile || tsId.current) return;
     tsId.current = window.turnstile.render(tsRef.current, {
       sitekey: TURNSTILE_KEY,
-      theme: "dark",
+      theme: "auto",
       callback: (t: string) => setToken(t),
       "expired-callback": () => setToken(""),
     });
@@ -148,7 +148,7 @@ export function ContactForm() {
 
   if (status.kind === "success") {
     return (
-      <div ref={statusRef} tabIndex={-1} role="status" className="rounded-[2rem] border border-white/10 bg-ink-2 p-8 sm:p-12">
+      <div ref={statusRef} tabIndex={-1} role="status" className="rounded-[2rem] border border-fg/10 bg-ink-2 p-8 sm:p-12">
         <span aria-hidden className="candy-stripe block size-14 rounded-full" />
         <h2 className="display display-sm mt-8">Thank you — we&apos;ve got it.</h2>
         <p className="mt-4 max-w-lg text-paper/70">
@@ -173,7 +173,7 @@ export function ContactForm() {
     );
   }
 
-  const field = "peer w-full rounded-2xl border bg-white/[0.03] px-5 pb-3 pt-7 text-[0.98rem] text-paper outline-none transition-colors placeholder:text-transparent focus:border-candy focus:bg-white/[0.05]";
+  const field = "peer w-full rounded-2xl border bg-fg/[0.03] px-5 pb-3 pt-7 text-[0.98rem] text-paper outline-none transition-colors placeholder:text-transparent focus:border-candy focus:bg-fg/[0.05]";
   const label = "pointer-events-none absolute left-5 top-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-paper/50";
   const err = (k: keyof Enquiry) => touched[k] && errors[k];
 
@@ -191,7 +191,7 @@ export function ContactForm() {
         aria-invalid={Boolean(err(k))}
         aria-describedby={err(k) ? `e-${k}` : undefined}
         placeholder={labelText}
-        className={cn(field, err(k) ? "border-berry" : "border-white/12")}
+        className={cn(field, err(k) ? "border-berry" : "border-fg/12")}
       />
       <label htmlFor={`f-${k}`} className={label}>
         {labelText} {!required && <span className="normal-case tracking-normal opacity-60">(optional)</span>}
@@ -215,7 +215,7 @@ export function ContactForm() {
         required
         aria-invalid={Boolean(err(k))}
         aria-describedby={err(k) ? `e-${k}` : undefined}
-        className={cn(field, "appearance-none pr-12", err(k) ? "border-berry" : "border-white/12", !values[k] && "text-paper/40")}
+        className={cn(field, "appearance-none pr-12", err(k) ? "border-berry" : "border-fg/12", !values[k] && "text-paper/40")}
       >
         <option value="" disabled>
           Select…
@@ -273,7 +273,7 @@ export function ContactForm() {
           aria-invalid={Boolean(err("message"))}
           aria-describedby={err("message") ? "e-message" : undefined}
           placeholder="Project description"
-          className={cn(field, "resize-y pt-8", err("message") ? "border-berry" : "border-white/12")}
+          className={cn(field, "resize-y pt-8", err("message") ? "border-berry" : "border-fg/12")}
         />
         <label htmlFor="f-message" className={label}>
           Project description

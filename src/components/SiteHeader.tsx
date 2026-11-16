@@ -65,7 +65,7 @@ export function SiteHeader() {
             className={cn(
               "flex w-full items-center justify-between rounded-full transition-all duration-700 ease-[var(--ease-out-expo)]",
               scrolled && !open
-                ? "border border-white/10 bg-ink/70 px-4 py-2.5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:px-5"
+                ? "border border-fg/10 bg-ink/70 px-4 py-2.5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-xl sm:px-5"
                 : "border border-transparent px-0 py-0",
             )}
           >
@@ -88,7 +88,7 @@ export function SiteHeader() {
                       {isActive(item.href) && (
                         <motion.span
                           layoutId="nav-pill"
-                          className="absolute inset-0 -z-0 rounded-full bg-white/10"
+                          className="absolute inset-0 -z-0 rounded-full bg-fg/10"
                           transition={{ type: "spring", stiffness: 380, damping: 32 }}
                         />
                       )}
@@ -113,7 +113,7 @@ export function SiteHeader() {
                 aria-expanded={open}
                 aria-controls="mobile-menu"
                 aria-label={open ? "Close menu" : "Open menu"}
-                className="relative z-10 grid size-11 place-items-center rounded-full border border-white/20 text-paper lg:hidden"
+                className="relative z-10 grid size-11 place-items-center rounded-full border border-fg/20 text-paper lg:hidden"
               >
                 <span className="relative block h-3 w-5">
                   <span
@@ -172,7 +172,7 @@ export function SiteHeader() {
                 ))}
               </ul>
             </nav>
-            <div className="container-x flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-6 text-sm text-paper/70">
+            <div className="container-x flex flex-wrap items-center justify-between gap-4 border-t border-fg/10 py-6 text-sm text-paper/70">
               <a href={`mailto:${site.email}`} className="link-underline">
                 {site.email}
               </a>

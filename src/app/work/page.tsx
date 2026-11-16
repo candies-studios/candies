@@ -40,7 +40,7 @@ export default function WorkPage() {
           ) : (
             <>
               <Reveal>
-                <div className="rounded-[2rem] border border-white/10 bg-ink-2 p-8 sm:p-12">
+                <div className="rounded-[2rem] border border-fg/10 bg-ink-2 p-8 sm:p-12">
                   <p className="eyebrow text-candy-soft">Case studies</p>
                   <p className="display display-sm mt-6 max-w-[26ch] normal-case tracking-[-0.03em]">
                     Detailed case studies are being prepared. In the meantime, here&apos;s where our experience lies.

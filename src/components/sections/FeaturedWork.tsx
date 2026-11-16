@@ -69,7 +69,7 @@ export function FeaturedWork() {
                       </p>
                       <h3 className="mt-2 text-2xl font-semibold tracking-tight">{p.title}</h3>
                     </div>
-                    <span className="mt-1 shrink-0 rounded-full border border-white/15 px-3 py-1 text-xs text-paper/70">{p.category}</span>
+                    <span className="mt-1 shrink-0 rounded-full border border-fg/15 px-3 py-1 text-xs text-paper/70">{p.category}</span>
                   </div>
                 </Link>
               </article>
@@ -87,11 +87,11 @@ export function SectorRoster() {
   const sectors = Array.from(new Set(clients.map((c) => c.sector).filter(Boolean))) as string[];
   const accents = ["#5e79bb", "#e8577d", "#34b98a", "#f2a33a"];
   return (
-    <ul className="mt-16 border-t border-white/10">
+    <ul className="mt-16 border-t border-fg/10">
       {sectors.map((sector, i) => {
         const names = clients.filter((c) => c.sector === sector).map((c) => c.name);
         return (
-          <Reveal as="li" key={sector} delay={i * 0.06} className="group relative border-b border-white/10">
+          <Reveal as="li" key={sector} delay={i * 0.06} className="group relative border-b border-fg/10">
             <div className="grid gap-4 py-8 transition-[padding] duration-700 ease-[var(--ease-out-expo)] md:grid-cols-12 md:items-center md:py-10 md:group-hover:py-14">
               <span className="text-sm font-semibold tracking-[0.2em] text-paper/40 md:col-span-1">0{i + 1}</span>
               <h3 className="display text-[clamp(1.6rem,3.2vw,3.2rem)] md:col-span-6">{sector}</h3>

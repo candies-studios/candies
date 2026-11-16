@@ -160,7 +160,7 @@ export default function CandyScene({ compact = false, paused = false }: { compac
       { kind: "torus", pos: [5.5, 1.9, -1.4], scale: 0.9, color: "#5e79bb", speed: 0.7, phase: 1.2, rot: [0.6, 0.3, 0] },
       { kind: "sphere", pos: [1.9, 2.25, -1.8], scale: 0.4, color: "#e8577d", speed: 0.8, phase: 2.1 },
       { kind: "capsule", pos: [6.1, -0.9, -1.4], scale: 0.75, color: "#f2a33a", speed: 0.65, phase: 0.6, rot: [0.3, 0, 0.9] },
-      { kind: "sphere", pos: [6.9, -2.3, -2.2], scale: 0.3, color: "#34b98a", speed: 0.9, phase: 3.3 },
+      { kind: "sphere", pos: [6.7, -2.9, -2.6], scale: 0.3, color: "#34b98a", speed: 0.9, phase: 3.3 },
       { kind: "sphere", pos: [6.6, 0.2, -2.6], scale: 0.55, color: "#6046aa", speed: 0.5, phase: 4.2 },
       { kind: "torus", pos: [0.2, -1.4, -3.8], scale: 0.45, color: "#a9b8e0", speed: 0.6, phase: 5.1, rot: [1.1, 0.4, 0] },
       { kind: "sphere", pos: [4.4, 2.6, 0.6], scale: 0.2, color: "#f6d743", speed: 1.1, phase: 0.9 },

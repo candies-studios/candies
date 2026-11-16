@@ -106,7 +106,7 @@ export default function AboutPage() {
                 b: `A team of strategists, designers, writers, marketers and producers with more than ${site.combinedExperienceYears} years of combined creative experience, working across markets including ${site.footprint.slice(0, -1).join(", ")} and ${site.footprint.at(-1)}.`,
               },
             ].map((c, i) => (
-              <Reveal as="li" key={c.k} delay={i * 0.1} className="relative rounded-[1.75rem] border border-white/10 bg-ink-2 p-8 sm:p-10">
+              <Reveal as="li" key={c.k} delay={i * 0.1} className="relative rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8 sm:p-10">
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-candy-soft">{c.k}</span>
                 <h3 className="mt-8 text-2xl font-semibold tracking-tight">{c.t}</h3>
                 <p className="mt-4 leading-relaxed text-paper/65">{c.b}</p>
@@ -118,7 +118,7 @@ export default function AboutPage() {
 
       {/* Philosophy */}
       <section aria-labelledby="philosophy-title" className="relative overflow-hidden bg-ink text-paper">
-        <div className="container-x grid gap-12 border-t border-white/10 py-24 sm:py-32 lg:grid-cols-12 lg:items-center">
+        <div className="container-x grid gap-12 border-t border-fg/10 py-24 sm:py-32 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
             <Reveal>
               <p className="eyebrow text-candy-soft">Philosophy &amp; approach</p>
@@ -181,7 +181,7 @@ export default function AboutPage() {
           <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((v, i) => (
               <Reveal as="li" key={v.title} delay={(i % 3) * 0.08}>
-                <div className="group relative h-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-ink-2 p-8 transition-colors duration-700 hover:border-white/25 sm:p-10">
+                <div className="group relative h-full overflow-hidden rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8 transition-colors duration-700 hover:border-fg/25 sm:p-10">
                   <div className="[perspective:600px]">
                     <span
                       aria-hidden
@@ -193,7 +193,7 @@ export default function AboutPage() {
                   </div>
                   <h3 className="display mt-10 text-3xl">{v.title}</h3>
                   <p className="mt-4 leading-relaxed text-paper/65">{v.body}</p>
-                  <span aria-hidden className="pointer-events-none absolute -bottom-6 -right-2 display text-[7rem] leading-none text-white/[0.03]">
+                  <span aria-hidden className="pointer-events-none absolute -bottom-6 -right-2 display text-[7rem] leading-none text-fg/[0.03]">
                     0{i + 1}
                   </span>
                 </div>
@@ -205,7 +205,7 @@ export default function AboutPage() {
 
       {/* Team */}
       <section id="team" aria-labelledby="team-title" className="bg-ink text-paper">
-        <div className="container-x border-t border-white/10 py-24 sm:py-32 lg:py-40">
+        <div className="container-x border-t border-fg/10 py-24 sm:py-32 lg:py-40">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
               <Reveal>

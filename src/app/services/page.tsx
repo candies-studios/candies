@@ -29,7 +29,7 @@ export default function ServicesPage() {
       >
         <nav aria-label="Services" className="mt-14 flex flex-wrap gap-2">
           {services.map((s) => (
-            <a key={s.slug} href={`#${s.slug}`} className="rounded-full border border-white/15 px-4 py-2 text-sm text-paper/80 transition-colors hover:border-white/50 hover:text-paper">
+            <a key={s.slug} href={`#${s.slug}`} className="rounded-full border border-fg/15 px-4 py-2 text-sm text-paper/80 transition-colors hover:border-fg/50 hover:text-paper">
               {s.index} · {s.title}
             </a>
           ))}
@@ -45,9 +45,9 @@ export default function ServicesPage() {
             aria-labelledby={`${s.slug}-title`}
             className={light ? "scroll-mt-24 bg-paper text-ink" : "scroll-mt-24 bg-ink text-paper"}
           >
-            <div className={`container-x grid gap-12 py-24 sm:py-32 lg:grid-cols-12 lg:items-center ${!light && i > 0 ? "border-t border-white/10" : ""}`}>
+            <div className={`container-x grid gap-12 py-24 sm:py-32 lg:grid-cols-12 lg:items-center ${!light && i > 0 ? "border-t border-fg/10" : ""}`}>
               <Reveal className={`lg:col-span-5 ${light ? "lg:order-2" : ""}`}>
-                <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-[2.5rem]" style={{ background: light ? "#0b0c14" : "#12141f" }}>
+                <div className="stage relative mx-auto aspect-square max-w-md overflow-hidden rounded-[2.5rem]" style={{ background: light ? "var(--color-stage)" : "var(--color-stage-2)" }}>
                   <div aria-hidden className="absolute inset-0 opacity-50 blur-[80px]" style={{ background: `radial-gradient(circle at 60% 40%, ${s.accent}, transparent 60%)` }} />
                   <ServiceGlyph slug={s.slug} accent={s.accent} className="absolute inset-[18%]" />
                   <span className="absolute left-6 top-6 text-sm font-semibold tracking-[0.2em] text-white/50">{s.index}</span>
@@ -86,8 +86,8 @@ export default function ServicesPage() {
         );
       })}
 
-      <section aria-label="All services" className="border-t border-white/10 bg-ink text-paper">
-        <ul className="container-x grid divide-y divide-white/10 py-6 md:grid-cols-4 md:divide-x md:divide-y-0">
+      <section aria-label="All services" className="border-t border-fg/10 bg-ink text-paper">
+        <ul className="container-x grid divide-y divide-fg/10 py-6 md:grid-cols-4 md:divide-x md:divide-y-0">
           {services.map((s) => (
             <li key={s.slug}>
               <Link href={`/services/${s.slug}`} className="group flex items-center justify-between gap-4 px-2 py-6 md:px-6">

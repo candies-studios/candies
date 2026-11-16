@@ -26,7 +26,7 @@ export function WorkGrid({ projects, categories }: { projects: Project[]; catego
               onClick={() => setActive(c)}
               className={cn(
                 "rounded-full border px-4 py-2 text-sm transition-colors duration-300",
-                active === c ? "border-paper bg-paper text-ink" : "border-white/15 text-paper/75 hover:border-white/50",
+                active === c ? "border-paper bg-paper text-ink" : "border-fg/15 text-paper/75 hover:border-fg/50",
               )}
             >
               {c}
@@ -65,7 +65,7 @@ export function WorkGrid({ projects, categories }: { projects: Project[]; catego
                     </p>
                     <h2 className="mt-2 text-2xl font-semibold tracking-tight">{p.title}</h2>
                   </div>
-                  <span className="mt-1 shrink-0 rounded-full border border-white/15 px-3 py-1 text-xs text-paper/70">{p.category}</span>
+                  <span className="mt-1 shrink-0 rounded-full border border-fg/15 px-3 py-1 text-xs text-paper/70">{p.category}</span>
                 </div>
               </Link>
             </motion.li>

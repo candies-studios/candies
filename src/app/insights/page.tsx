@@ -26,9 +26,9 @@ export default function InsightsPage() {
       <section aria-label="Articles" className="bg-ink text-paper">
         <div className="container-x pb-24 sm:pb-32">
           {posts.length ? (
-            <ul className="border-t border-white/10">
+            <ul className="border-t border-fg/10">
               {posts.map((p, i) => (
-                <Reveal as="li" key={p.slug} delay={i * 0.05} className="border-b border-white/10">
+                <Reveal as="li" key={p.slug} delay={i * 0.05} className="border-b border-fg/10">
                   <Link href={`/insights/${p.slug}`} className="group grid gap-4 py-10 md:grid-cols-12 md:items-baseline">
                     <span className="text-sm text-paper/45 md:col-span-2">
                       <time dateTime={p.date}>{fmt(p.date)}</time>
@@ -38,7 +38,7 @@ export default function InsightsPage() {
                       <span className="mt-3 block text-paper/60">{p.excerpt}</span>
                     </span>
                     <span className="flex items-center justify-between gap-4 md:col-span-3 md:justify-end">
-                      <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-paper/70">{p.topic}</span>
+                      <span className="rounded-full border border-fg/15 px-3 py-1 text-xs text-paper/70">{p.topic}</span>
                       <ArrowIcon className="transition-transform duration-500 group-hover:translate-x-1" />
                     </span>
                   </Link>
@@ -47,7 +47,7 @@ export default function InsightsPage() {
             </ul>
           ) : (
             <Reveal>
-              <div className="rounded-[2rem] border border-white/10 bg-ink-2 p-8 sm:p-12">
+              <div className="rounded-[2rem] border border-fg/10 bg-ink-2 p-8 sm:p-12">
                 <p className="display display-sm max-w-[24ch] normal-case tracking-[-0.03em]">
                   Our first articles are on the way.
                 </p>

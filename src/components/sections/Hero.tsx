@@ -10,7 +10,7 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
         <div className="absolute -left-40 top-1/3 size-[40rem] rounded-full bg-candy/20 blur-[160px]" />
         <div className="absolute right-0 top-0 size-[36rem] rounded-full bg-grape/20 blur-[160px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(11,12,20,0.85)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,color-mix(in_srgb,var(--color-ink)_85%,transparent)_100%)]" />
       </div>
       <div className="absolute inset-x-0 top-0 -z-10 h-[54svh] lg:inset-0 lg:h-auto">
         <HeroVisual />
@@ -27,7 +27,7 @@ export function Hero() {
           id="hero-title"
           immediate
           delay={0.15}
-          className="display display-xl mt-7 max-w-[15ch] lg:mix-blend-difference"
+          className="hero-title display display-xl mt-7 max-w-[15ch] lg:mix-blend-difference"
           lines={[
             "We turn ideas into",
             "experiences that",
@@ -56,12 +56,12 @@ export function Hero() {
 
       <div className="container-x relative">
         <Reveal delay={1.1} y={0}>
-          <div className="flex items-center justify-between gap-6 border-t border-white/10 py-5 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-paper/50">
+          <div className="flex items-center justify-between gap-6 border-t border-fg/10 py-5 text-[0.72rem] font-medium uppercase tracking-[0.2em] text-paper/50">
             <span className="hidden sm:inline">{site.combinedExperienceYears}+ years of combined creative experience</span>
             <span className="hidden md:inline">Design · Content · Digital · Events</span>
             <a href="#intro" className="group inline-flex items-center gap-3 text-paper/70 hover:text-paper">
               Scroll
-              <span className="relative block h-8 w-[1px] overflow-hidden bg-white/15">
+              <span className="relative block h-8 w-[1px] overflow-hidden bg-fg/15">
                 <span className="absolute inset-x-0 top-0 h-1/2 bg-paper motion-safe:animate-[scrollcue_2.2s_cubic-bezier(0.83,0,0.17,1)_infinite]" />
               </span>
             </a>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { nav, site, socialLinks, whatsappLink } from "@/content/site";
 import { services } from "@/content/services";
 import { Logo } from "./Logo";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 export function SiteFooter() {
   const socials = socialLinks();
@@ -9,7 +10,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-ink text-paper">
+    <footer className="relative overflow-hidden border-t border-fg/10 bg-ink text-paper">
       <div className="container-x grid gap-14 py-20 lg:grid-cols-12 lg:py-24">
         <div className="lg:col-span-5">
           <Logo />
@@ -83,16 +84,19 @@ export function SiteFooter() {
       </div>
 
       <div className="container-x" aria-hidden>
-        <p className="display select-none whitespace-nowrap text-center text-[17.5vw] leading-[0.8] text-white/[0.04] lg:text-[16.5vw]">
+        <p className="display select-none whitespace-nowrap text-center text-[17.5vw] leading-[0.8] text-fg/[0.04] lg:text-[16.5vw]">
           Candies
         </p>
       </div>
 
-      <div className="container-x flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-x flex flex-col gap-3 border-t border-fg/10 py-6 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between">
         <p>
           © {year} {site.name}. All rights reserved.
         </p>
-        <p className="tracking-[0.2em] uppercase">{site.tagline}</p>
+        <div className="flex flex-wrap items-center gap-4">
+          <ThemeSwitch />
+          <p className="tracking-[0.2em] uppercase">{site.tagline}</p>
+        </div>
       </div>
     </footer>
   );

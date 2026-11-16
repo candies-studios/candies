@@ -12,7 +12,7 @@ export function GlobalPresence() {
   return (
     <section aria-labelledby="global-title" className="relative overflow-hidden bg-ink text-paper section-y">
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <svg className="absolute -right-40 top-10 h-[46rem] w-[46rem] text-white/[0.06] motion-safe:animate-[spin_120s_linear_infinite]" viewBox="0 0 200 200" fill="none">
+        <svg className="absolute -right-40 top-10 h-[46rem] w-[46rem] text-fg/[0.06] motion-safe:animate-[spin_120s_linear_infinite]" viewBox="0 0 200 200" fill="none">
           <circle cx="100" cy="100" r="98" stroke="currentColor" />
           {[20, 40, 60, 80].map((r) => (
             <ellipse key={`h${r}`} cx="100" cy="100" rx="98" ry={r} stroke="currentColor" />
@@ -35,7 +35,7 @@ export function GlobalPresence() {
         <div className="mt-16 grid gap-4 md:grid-cols-3">
           {site.addresses.map((a, i) => (
             <Reveal key={a.label} delay={i * 0.08}>
-              <address className="flex h-full flex-col rounded-[1.75rem] border border-white/10 bg-ink-2 p-8 not-italic transition-colors duration-500 hover:border-white/25">
+              <address className="flex h-full flex-col rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8 not-italic transition-colors duration-500 hover:border-fg/25">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">{a.label}</span>
                   <LocalTime timeZone={tz[a.countryCode]} />
@@ -54,11 +54,11 @@ export function GlobalPresence() {
           ))}
         </div>
 
-        <Reveal className="mt-16 flex flex-col gap-6 border-t border-white/10 pt-10 md:flex-row md:items-center md:justify-between">
+        <Reveal className="mt-16 flex flex-col gap-6 border-t border-fg/10 pt-10 md:flex-row md:items-center md:justify-between">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-paper/45">Markets we&apos;ve worked in</p>
           <ul className="flex flex-wrap gap-2">
             {site.footprint.map((m) => (
-              <li key={m} className="rounded-full border border-white/15 px-4 py-2 text-sm text-paper/80">
+              <li key={m} className="rounded-full border border-fg/15 px-4 py-2 text-sm text-paper/80">
                 {m}
               </li>
             ))}

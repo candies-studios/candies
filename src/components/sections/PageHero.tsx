@@ -25,10 +25,10 @@ export function PageHero({
           className="absolute -right-32 -top-32 size-[38rem] rounded-full opacity-40 blur-[120px]"
           style={{ background: accent }}
         />
-        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-fg/15 to-transparent" />
         {/* floating dimensional rings */}
-        <div className="absolute right-[6%] top-[28%] hidden aspect-square w-[22vw] max-w-[340px] rounded-full border border-white/10 lg:block [transform:rotateX(68deg)_rotateZ(20deg)] motion-safe:animate-[spin_40s_linear_infinite]" />
-        <div className="absolute right-[10%] top-[34%] hidden aspect-square w-[14vw] max-w-[220px] rounded-full border border-white/15 lg:block [transform:rotateX(70deg)_rotateY(-20deg)] motion-safe:animate-[spin_28s_linear_infinite_reverse]" />
+        <div className="absolute right-[6%] top-[28%] hidden aspect-square w-[22vw] max-w-[340px] rounded-full border border-fg/10 lg:block [transform:rotateX(68deg)_rotateZ(20deg)] motion-safe:animate-[spin_40s_linear_infinite]" />
+        <div className="absolute right-[10%] top-[34%] hidden aspect-square w-[14vw] max-w-[220px] rounded-full border border-fg/15 lg:block [transform:rotateX(70deg)_rotateY(-20deg)] motion-safe:animate-[spin_28s_linear_infinite_reverse]" />
       </div>
       <div className="container-x">
         <Reveal>

@@ -13,6 +13,9 @@
   --color-paper-2: #ebe6de;
   --color-line: rgb(255 255 255 / 0.12);
   --color-line-dark: rgb(11 12 20 / 0.12);
+  --color-fg: #ffffff;          /* overlay/border colour on "ink" surfaces */
+  --color-stage: #0b0c14;       /* backdrop for 3D service glyphs */
+  --color-stage-2: #12141f;
 
   --color-candy: #5e79bb;      /* brand blue */
   --color-candy-deep: #3d589a;
@@ -135,6 +138,38 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────
+   BRIGHT THEME  (<html data-theme="bright">)
+   The "ink" surfaces become warm white and "paper" text becomes ink,
+   so every dark section turns bright with no markup changes.
+   Light (paper) sections are re-scoped to a soft candy-blue tint so
+   the editorial light/tint rhythm is kept.
+   ───────────────────────────────────────────────────────────── */
+[data-theme="bright"] {
+  color-scheme: light;
+  --color-ink: #fbfaf7;
+  --color-ink-2: #ffffff;
+  --color-ink-3: #eceff7;
+  --color-paper: #15161f;
+  --color-paper-2: #2a2c3a;
+  --color-fg: #15161f;
+  --color-candy-soft: #4a64ad;
+  --color-stage: #1a2140;
+  --color-stage-2: #232c55;
+}
+[data-theme="bright"] :is(section, footer, article).bg-paper {
+  --color-paper: #eef1f9;
+  --color-ink: #15161f;
+  --color-ink-2: #12141f;
+  --color-ink-3: #1b1e2d;
+  --color-fg: #ffffff;
+  --color-candy-soft: #a9b8e0;
+}
+.stage { --color-fg: #ffffff; }
+[data-theme="bright"] .hero-title { mix-blend-mode: normal; }
+[data-theme="bright"] .grain::after { opacity: 0.035; mix-blend-mode: multiply; }
+[data-theme="bright"] .shadow-soft { box-shadow: 0 18px 50px -24px rgb(21 22 31 / 0.18); }
+
 /* Respect reduced-motion preferences everywhere */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -144,3 +179,5 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+[data-theme="bright"] form :is(input, select, textarea) { background-color: #ffffff; }

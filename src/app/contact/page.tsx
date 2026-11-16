@@ -49,7 +49,7 @@ export default function ContactPage() {
                 {site.email}
               </a>
               {wa && (
-                <a href={wa} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm hover:border-white/40">
+                <a href={wa} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full border border-fg/15 px-4 py-2 text-sm hover:border-fg/40">
                   <span className="size-2 rounded-full bg-mint" /> Chat on WhatsApp
                 </a>
               )}
@@ -59,7 +59,7 @@ export default function ContactPage() {
               <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">Offices</h2>
               <ul className="mt-5 space-y-6">
                 {site.addresses.map((a) => (
-                  <li key={a.label} className="border-t border-white/10 pt-5">
+                  <li key={a.label} className="border-t border-fg/10 pt-5">
                     <div className="flex items-center justify-between gap-4">
                       <p className="font-semibold">{a.city}</p>
                       <LocalTime timeZone={tz[a.countryCode]} />
@@ -83,7 +83,7 @@ export default function ContactPage() {
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {socials.map((s) => (
                     <li key={s.key}>
-                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full border border-white/15 px-4 py-2 text-sm hover:border-white/40">
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full border border-fg/15 px-4 py-2 text-sm hover:border-fg/40">
                         {s.label}
                       </a>
                     </li>
@@ -93,7 +93,7 @@ export default function ContactPage() {
             )}
 
             <Reveal delay={0.4}>
-              <div className="rounded-[1.5rem] border border-white/10 bg-ink-2 p-6 text-sm text-paper/65">
+              <div className="rounded-[1.5rem] border border-fg/10 bg-ink-2 p-6 text-sm text-paper/65">
                 <p className="font-semibold text-paper">What happens next?</p>
                 <ol className="mt-3 list-decimal space-y-1.5 pl-4">
                   <li>We review your brief and come back with questions.</li>

@@ -56,7 +56,7 @@ export default async function ServicePage({ params }: Params) {
       >
         <div className="mt-12 flex flex-wrap gap-2">
           {s.capabilities.map((c) => (
-            <span key={c} className="rounded-full border border-white/15 px-4 py-2 text-sm text-paper/80">
+            <span key={c} className="rounded-full border border-fg/15 px-4 py-2 text-sm text-paper/80">
               {c}
             </span>
           ))}
@@ -67,7 +67,7 @@ export default async function ServicePage({ params }: Params) {
       <section aria-labelledby="overview" className="bg-paper text-ink section-y">
         <div className="container-x grid gap-14 lg:grid-cols-12 lg:items-center">
           <Reveal className="lg:col-span-5">
-            <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-[2.5rem] bg-ink">
+            <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-[2.5rem] bg-stage stage">
               <div aria-hidden className="absolute inset-0 opacity-60 blur-[80px]" style={{ background: `radial-gradient(circle at 60% 40%, ${s.accent}, transparent 60%)` }} />
               <ServiceGlyph slug={s.slug} accent={s.accent} className="absolute inset-[16%]" />
             </div>
@@ -95,7 +95,7 @@ export default async function ServicePage({ params }: Params) {
           </div>
           <ol className="lg:col-span-8">
             {s.deliverables.map((d, i) => (
-              <Reveal as="li" key={d} delay={i * 0.04} className="group flex items-baseline gap-6 border-b border-white/10 py-6 first:border-t">
+              <Reveal as="li" key={d} delay={i * 0.04} className="group flex items-baseline gap-6 border-b border-fg/10 py-6 first:border-t">
                 <span className="w-8 shrink-0 text-xs font-semibold tracking-[0.2em] text-paper/40">{String(i + 1).padStart(2, "0")}</span>
                 <span className="text-lg text-paper/85 transition-transform duration-500 group-hover:translate-x-2 sm:text-xl">{d}</span>
               </Reveal>
@@ -132,7 +132,7 @@ export default async function ServicePage({ params }: Params) {
           <SplitLines id="approach" className="display display-md mt-7" lines={["Our approach."]} />
           <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {s.approach.map((a, i) => (
-              <Reveal as="li" key={a.step} delay={i * 0.08} className="rounded-[1.75rem] border border-white/10 bg-ink-2 p-8">
+              <Reveal as="li" key={a.step} delay={i * 0.08} className="rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8">
                 <span className="text-xs font-semibold tracking-[0.2em]" style={{ color: s.accent }}>
                   0{i + 1}
                 </span>
@@ -201,7 +201,7 @@ export default async function ServicePage({ params }: Params) {
 
       {/* Enquiry + next service */}
       <section className="bg-ink text-paper">
-        <div className="container-x grid gap-6 border-t border-white/10 py-16 md:grid-cols-2">
+        <div className="container-x grid gap-6 border-t border-fg/10 py-16 md:grid-cols-2">
           <div className="rounded-[1.75rem] p-8 sm:p-10" style={{ background: s.accent }}>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">Ready when you are</p>
             <p className="display mt-6 text-3xl text-white sm:text-4xl">Talk to us about {s.title.toLowerCase()}.</p>
@@ -209,11 +209,11 @@ export default async function ServicePage({ params }: Params) {
               Start a project
             </ButtonLink>
           </div>
-          <Link href={`/services/${next.slug}`} className="group flex flex-col justify-between rounded-[1.75rem] border border-white/10 bg-ink-2 p-8 transition-colors hover:border-white/30 sm:p-10">
+          <Link href={`/services/${next.slug}`} className="group flex flex-col justify-between rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8 transition-colors hover:border-fg/30 sm:p-10">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-paper/45">Next service</p>
             <div className="mt-6 flex items-end justify-between gap-6">
               <p className="display text-4xl sm:text-5xl">{next.title}</p>
-              <span className="grid size-14 place-items-center rounded-full border border-white/20 transition-all duration-500 group-hover:bg-paper group-hover:text-ink">
+              <span className="grid size-14 place-items-center rounded-full border border-fg/20 transition-all duration-500 group-hover:bg-paper group-hover:text-ink">
                 <ArrowIcon />
               </span>
             </div>

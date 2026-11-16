@@ -38,7 +38,7 @@ export function Capabilities() {
             <Reveal key={s.slug} delay={i * 0.08} className="lg:flex lg:min-w-0 lg:flex-1 lg:transition-[flex-grow] lg:duration-[900ms] lg:ease-[var(--ease-out-expo)] lg:hover:flex-[2.3] lg:focus-within:flex-[2.3]">
               <Link
                 href={`/services/${s.slug}`}
-                className="group relative flex h-full w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-ink-2 p-7 transition-colors duration-700 hover:border-white/25 sm:p-9"
+                className="group relative flex h-full w-full flex-col overflow-hidden rounded-[2rem] border border-fg/10 bg-ink-2 p-7 transition-colors duration-700 hover:border-fg/25 sm:p-9"
               >
                 <div
                   aria-hidden
@@ -47,7 +47,7 @@ export function Capabilities() {
                 />
                 <div className="flex items-start justify-between">
                   <span className="text-sm font-semibold tracking-[0.2em] text-paper/45">{s.index}</span>
-                  <span className="grid size-11 place-items-center rounded-full border border-white/15 transition-all duration-500 group-hover:border-transparent group-hover:bg-paper group-hover:text-ink">
+                  <span className="grid size-11 place-items-center rounded-full border border-fg/15 transition-all duration-500 group-hover:border-transparent group-hover:bg-paper group-hover:text-ink">
                     <ArrowIcon className="-rotate-45 transition-transform duration-500 group-hover:rotate-0" />
                   </span>
                 </div>
@@ -65,7 +65,7 @@ export function Capabilities() {
                   </p>
                   <ul className="mt-5 flex flex-wrap gap-2 lg:max-h-0 lg:overflow-hidden lg:opacity-0 lg:transition-all lg:duration-700 lg:group-hover:max-h-40 lg:group-hover:opacity-100 lg:group-focus-visible:max-h-40 lg:group-focus-visible:opacity-100">
                     {s.capabilities.map((c) => (
-                      <li key={c} className="rounded-full border border-white/15 px-3 py-1 text-xs text-paper/75">
+                      <li key={c} className="rounded-full border border-fg/15 px-3 py-1 text-xs text-paper/75">
                         {c}
                       </li>
                     ))}

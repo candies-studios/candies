@@ -37,7 +37,7 @@ export default async function ProjectPage({ params }: Params) {
   return (
     <>
       <PageHero eyebrow={`${p.client} · ${p.industry}`} lines={[p.title]} intro={<p>{p.overview}</p>}>
-        <dl className="mt-14 grid gap-6 border-t border-white/10 pt-8 sm:grid-cols-4">
+        <dl className="mt-14 grid gap-6 border-t border-fg/10 pt-8 sm:grid-cols-4">
           {[
             ["Client", p.client],
             ["Industry", p.industry],
@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: Params) {
             <h2 className="eyebrow text-candy-soft">Results</h2>
             <ul className="mt-10 grid gap-4 sm:grid-cols-3">
               {p.results.map((r) => (
-                <li key={r.label} className="rounded-[1.75rem] border border-white/10 bg-ink-2 p-8">
+                <li key={r.label} className="rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8">
                   <p className="display text-5xl">{r.value}</p>
                   <p className="mt-3 text-paper/65">{r.label}</p>
                 </li>
@@ -130,12 +130,12 @@ export default async function ProjectPage({ params }: Params) {
 
       {next && next.slug !== p.slug && (
         <section className="bg-ink text-paper">
-          <Link href={`/work/${next.slug}`} className="container-x group flex items-end justify-between gap-6 border-t border-white/10 py-16">
+          <Link href={`/work/${next.slug}`} className="container-x group flex items-end justify-between gap-6 border-t border-fg/10 py-16">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-paper/45">Next project</p>
               <p className="display display-md mt-4">{next.title}</p>
             </div>
-            <span className="grid size-16 shrink-0 place-items-center rounded-full border border-white/20 transition-all group-hover:bg-paper group-hover:text-ink">
+            <span className="grid size-16 shrink-0 place-items-center rounded-full border border-fg/20 transition-all group-hover:bg-paper group-hover:text-ink">
               <ArrowIcon />
             </span>
           </Link>
