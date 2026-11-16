@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Candies Studio — design tokens
+   Brand blue (#5e79bb) is taken from the existing logo/site.
+   The "candy" accents come from the striped candy-ball mark.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --color-ink: #0b0c14;
+  --color-ink-2: #12141f;
+  --color-ink-3: #1b1e2d;
+  --color-paper: #f4f1ec;
+  --color-paper-2: #ebe6de;
+  --color-line: rgb(255 255 255 / 0.12);
+  --color-line-dark: rgb(11 12 20 / 0.12);
+
+  --color-candy: #5e79bb;      /* brand blue */
+  --color-candy-deep: #3d589a;
+  --color-candy-soft: #a9b8e0;
+  --color-berry: #e8577d;
+  --color-mint: #34b98a;
+  --color-honey: #f2a33a;
+  --color-grape: #6046aa;
+
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink text-paper font-sans;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-candy);
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-candy);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img, video, canvas { display: block; max-width: 100%; }
+}
+
+@layer components {
+  /* Fluid display type, wide & heavy */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 112%;
+    font-variation-settings: "wdth" 112;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+  .display-xl { font-size: clamp(2.6rem, 8.4vw, 9.5rem); }
+  .display-lg { font-size: clamp(2.3rem, 6.2vw, 6.5rem); }
+  .display-md { font-size: clamp(1.9rem, 4.2vw, 4.25rem); }
+  .display-sm { font-size: clamp(1.5rem, 2.6vw, 2.5rem); }
+
+  .serif-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.22em];
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+  }
+
+  .container-x {
+    @apply mx-auto w-full max-w-[1520px] px-5 sm:px-8 lg:px-12;
+  }
+  .section-y {
+    @apply py-24 sm:py-32 lg:py-40;
+  }
+
+  .lede {
+    @apply text-lg leading-relaxed sm:text-xl lg:text-[1.35rem] lg:leading-[1.6];
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s var(--ease-out-expo);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .candy-stripe {
+    background: conic-gradient(from 200deg, #e8577d, #f2a33a, #f6d743, #34b98a, #5e79bb, #6046aa, #e8577d);
+  }
+}
+
+/* Respect reduced-motion preferences everywhere */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
