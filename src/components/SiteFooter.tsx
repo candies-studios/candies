@@ -92,7 +92,11 @@ export function SiteFooter() {
         <p>
           © {year} {site.name}. All rights reserved.
         </p>
-        <p className="tracking-[0.2em] uppercase">{site.tagline}</p>
+        <div className="flex flex-wrap items-center gap-5">
+          <Link href="/privacy/" className="hover:text-paper">Privacy Policy</Link>
+          <Link href="/terms/" className="hover:text-paper">Terms &amp; Conditions</Link>
+          <p className="tracking-[0.2em] uppercase">{site.tagline}</p>
+        </div>
       </div>
     </footer>
   );

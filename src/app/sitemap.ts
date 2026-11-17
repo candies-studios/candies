@@ -7,7 +7,7 @@ import { publishedPosts } from "@/content/insights";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = ["", "/about", "/services", "/work", "/insights", "/contact"].map((p) => ({
+  const staticRoutes = ["", "/about", "/services", "/work", "/insights", "/contact", "/privacy", "/terms"].map((p) => ({
     url: `${site.url}${p}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

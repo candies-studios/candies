@@ -1,0 +1,5 @@
+# Minimal Supabase CLI config for this project.
+# The landing page posts from a public website, so the function does its own
+# validation/spam checks instead of requiring a logged-in user JWT.
+[functions.lead-submit]
+verify_jwt = false

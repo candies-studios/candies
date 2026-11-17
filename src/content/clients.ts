@@ -6,7 +6,7 @@
 export type Client = {
   name: string;
   logo: string;
-  sector?: "Banking & Financial Services" | "FMCG & Consumer" | "Media & Publishing" | "Payments & Technology";
+  sector?: "Banking & Financial Services" | "FMCG & Consumer" | "Media & Publishing" | "Payments & Technology" | "Healthcare & Life Sciences";
 };
 
 export const clients: Client[] = [
@@ -20,6 +20,5 @@ export const clients: Client[] = [
   { name: "Borosil", logo: "/media/clients/borosil.png", sector: "FMCG & Consumer" },
   { name: "Forbes India", logo: "/media/clients/forbes-india.png", sector: "Media & Publishing" },
   { name: "Viacom18", logo: "/media/clients/viacom18.png", sector: "Media & Publishing" },
-  // TODO(admin): confirm ADMA's full name and sector.
-  { name: "ADMA", logo: "/media/clients/adma.png" },
+  { name: "ADMA Biologics", logo: "/media/clients/adma.png", sector: "Healthcare & Life Sciences" },
 ];

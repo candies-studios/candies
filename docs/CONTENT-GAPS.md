@@ -16,7 +16,7 @@ Nothing below was invented. Each item was missing from (or not usable on) the ol
 | # | Item | Where | Notes |
 |---|---|---|---|
 | 5 | Budget ranges on the form | `src/lib/enquiry.ts → budgetOptions` | These are placeholder ranges in INR with USD equivalents. Adjust them to match how the studio prices work. |
-| 6 | ADMA: full name and sector | `src/content/clients.ts` | The logo was on the old site, but its sector is unknown. It shows in the logo marquee but not in the sector list. |
+| 6 | ~~ADMA: full name and sector~~ | `src/content/clients.ts` | Resolved: the logo reads "ADMA Biologics", listed under Healthcare & Life Sciences. |
 | 7 | Client sectors | `src/content/clients.ts` | The sector grouping (Banking & FS, Payments, FMCG & Consumer, Media) is editorial. Confirm it, or rename the groups. |
 | 8 | Founding year and milestones | `src/app/about/page.tsx` (Our story) | The story section is written without dates. Add a year or milestones if you'd like them shown. |
 | 9 | WhatsApp business number | env `NEXT_PUBLIC_WHATSAPP_NUMBER` | Optional. |

@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { site } from "@/content/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ChromeGate } from "@/components/ChromeGate";
+import { Tracking } from "@/components/Tracking";
 import { asset } from "@/lib/asset";
 
 export const metadata: Metadata = {
@@ -68,7 +69,6 @@ const orgJsonLd = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang="en" data-theme={site.theme}>
       <head>
@@ -82,17 +82,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
       </head>
       <body>
-        <SiteHeader />
+        <ChromeGate>
+          <SiteHeader />
+        </ChromeGate>
         <main id="main">{children}</main>
-        <SiteFooter />
-        {gaId && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
-            <Script id="ga" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${gaId}',{anonymize_ip:true});`}
-            </Script>
-          </>
-        )}
+        <ChromeGate>
+          <SiteFooter />
+        </ChromeGate>
+        <Tracking />
       </body>
     </html>
   );
