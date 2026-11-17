@@ -12,10 +12,15 @@ import { ServiceGlyph } from "../ServiceGlyph";
 import { EmailLink, EnquireButton, ScheduleButton, ScrollLink, WhatsAppLink } from "./actions";
 import { LeadForm } from "./LeadForm";
 import { LPHeader, MobileCTA, ViewContentTracker } from "./LPChrome";
-import { QuickStart } from "./QuickStart";
 
 const sphere = (c: string) =>
   `radial-gradient(circle at 30% 28%, rgba(255,255,255,.8), transparent 35%), radial-gradient(circle at 70% 80%, rgba(0,0,0,.35), transparent 55%), ${c}`;
+
+const reassurances = [
+  "No obligation — a conversation, not a sales pitch",
+  "Your details stay private and are never sold",
+  "Speak directly with the people who'll do the work",
+];
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow text-candy-deep">{children}</p>;
@@ -36,45 +41,68 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
       <ViewContentTracker campaign={c} targetId="services" />
 
       {/* 1 ── HERO ───────────────────────────────────────── */}
-      <section aria-labelledby="lp-title" className="relative isolate overflow-hidden pb-14 pt-28 sm:pb-20 sm:pt-36 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-16 lg:pt-28">
+      <section aria-labelledby="lp-title" className="relative isolate overflow-hidden pb-14 pt-24 sm:pb-20 sm:pt-32 lg:pb-20 lg:pt-32">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -right-24 -top-24 size-[30rem] rounded-full bg-candy/20 blur-[120px] sm:size-[40rem]" />
           <div className="absolute -left-40 bottom-0 size-[28rem] rounded-full bg-berry/10 blur-[120px]" />
           {/* candy composition (CSS only — no 3D bundle, loads instantly on mobile) */}
           <div className="absolute right-[-14%] top-14 aspect-square w-[36vw] max-w-[520px] min-w-[140px] rounded-full candy-stripe opacity-80 sm:opacity-90 shadow-[inset_-30px_-40px_80px_rgba(0,0,0,0.25),inset_20px_20px_60px_rgba(255,255,255,0.45)] motion-safe:animate-[lpfloat_9s_ease-in-out_infinite] sm:right-[-6%] lg:right-[4%] lg:top-[18%] lg:w-[30vw]" />
-          <div className="absolute right-[30%] top-24 hidden size-14 rounded-full motion-safe:animate-[lpfloat_7s_ease-in-out_infinite] lg:block" style={{ background: sphere("#5e79bb") }} />
           <div className="absolute bottom-[14%] right-[8%] hidden size-9 rounded-full motion-safe:animate-[lpfloat_6s_ease-in-out_infinite_reverse] lg:block" style={{ background: sphere("#34b98a") }} />
         </div>
         <style>{`@keyframes lpfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}`}</style>
 
-        <div className="container-x grid w-full gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7">
+        <div className="container-x grid w-full gap-8 lg:grid-cols-12 lg:items-start lg:gap-12">
+          <div className="lg:col-span-6 lg:pt-6 xl:col-span-6">
             <p className="eyebrow text-candy-deep">{campaign.eyebrow}</p>
-            <h1 id="lp-title" className="display mt-5 max-w-[16ch] text-[clamp(2.25rem,min(9.5vw,8.4svh),5.4rem)] leading-[0.95]">
+            <h1 id="lp-title" className="display mt-5 max-w-[15ch] text-[clamp(2.1rem,min(8.6vw,7svh),4.6rem)] leading-[0.95]">
               {campaign.headline[0]} <span className="serif-accent text-candy-deep">{campaign.headline[1]}</span>
             </h1>
-            <p className="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-paper/70 sm:text-lg">{campaign.subcopy}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <EnquireButton location="hero" campaign={c} interests={campaign.preselect}>
-                Let&apos;s Discuss Your Project
-              </EnquireButton>
-              <ScrollLink
-                target={projects.length ? "work" : "experience"}
-                location="hero"
-                campaign={c}
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-fg/20 px-6 py-3.5 text-sm font-semibold transition-colors hover:border-fg/50"
-              >
-                Explore Our Work
-              </ScrollLink>
-            </div>
-            <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-paper/55">
+            <p className="mt-5 max-w-xl text-[1.02rem] leading-relaxed text-paper/70 sm:text-lg">{campaign.subcopy}</p>
+            <ul className="mt-6 hidden space-y-2.5 text-sm lg:block">
+              {reassurances.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span aria-hidden className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-mint text-[10px] text-white">
+                    ✓
+                  </span>
+                  <span className="text-paper/75">{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 hidden flex-wrap items-center gap-x-3 gap-y-1 text-sm text-paper/55 lg:flex">
               <span>{site.combinedExperienceYears}+ years of combined creative experience</span>
               <span aria-hidden>·</span>
-              <span>Navi Mumbai · Dubai · USA</span>
+              <span>India · UAE · USA</span>
             </p>
+            <div className="mt-8 hidden flex-wrap gap-2 lg:flex">
+              {clients.slice(0, 8).map((cl) => (
+                <span key={cl.name} className="h-11 w-[6.5rem] rounded-xl border border-ink/[0.07] bg-white">
+                  <ClientLogo client={cl} />
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="hidden lg:col-span-5 lg:block">
-            <QuickStart campaign={c} />
+
+          {/* ENQUIRY FORM — first thing visitors can act on */}
+          <div id="enquire" className="scroll-mt-24 lg:col-span-6 xl:col-span-6">
+            <h2 className="mb-4 text-lg font-semibold tracking-tight sm:text-xl">
+              Let&apos;s create something <span className="serif-accent text-[1.35em] text-candy-deep">extraordinary</span> together.
+            </h2>
+            <LeadForm campaign={c} preselect={campaign.preselect} />
+            <ul className="mt-6 space-y-2.5 text-sm lg:hidden">
+              {reassurances.map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span aria-hidden className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-mint text-[10px] text-white">
+                    ✓
+                  </span>
+                  <span className="text-paper/75">{t}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-sm text-paper/55">
+              <ScrollLink target={projects.length ? "work" : "experience"} location="hero" campaign={c} className="font-semibold text-paper underline underline-offset-4">
+                Explore our work ↓
+              </ScrollLink>
+            </p>
           </div>
         </div>
       </section>
@@ -99,7 +127,7 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
             {[
               [`${site.combinedExperienceYears}+ years`, "of combined creative experience"],
               ["5 disciplines", "Design, content, digital, web & events"],
-              ["3 offices", "Navi Mumbai, Dubai and the USA"],
+              ["3 offices", "India, UAE and USA"],
               ["6 markets", site.footprint.join(", ")],
             ].map(([k, d]) => (
               <div key={k} className="bg-paper p-6">
@@ -315,44 +343,6 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
         </section>
       )}
 
-      {/* 10 ── LEAD FORM ─────────────────────────────────── */}
-      <section id="enquire" aria-labelledby="form-title" className="scroll-mt-16 bg-paper py-16 text-ink sm:py-24">
-        <div className="container-x grid gap-10 lg:grid-cols-12 lg:items-start">
-          <div className="lg:sticky lg:top-28 lg:col-span-5">
-            <Eyebrow>Start your project</Eyebrow>
-            <h2 id="form-title" className="display mt-5 text-[clamp(1.8rem,4.4vw,3.2rem)]">
-              Let&apos;s create something <span className="serif-accent text-candy-deep">extraordinary together.</span>
-            </h2>
-            <p className="mt-5 text-ink/70">
-              Tell us a little about your business and what you are looking to achieve. Our team will connect with you to explore the right solution.
-            </p>
-            <ul className="mt-8 space-y-3 text-sm">
-              {["No obligation — a conversation, not a sales pitch", "Your details stay private and are never sold", "Speak directly with the people who'll do the work"].map((t) => (
-                <li key={t} className="flex gap-3">
-                  <span aria-hidden className="mt-1 grid size-4 shrink-0 place-items-center rounded-full bg-mint text-[10px] text-white">
-                    ✓
-                  </span>
-                  <span className="text-ink/75">{t}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 hidden flex-wrap gap-2 lg:flex">
-              {clients.slice(0, 6).map((cl) => (
-                <span key={cl.name} className="h-12 w-28 rounded-xl border border-ink/[0.07] bg-white">
-                  <ClientLogo client={cl} />
-                </span>
-              ))}
-            </div>
-            <p className="mt-8 text-sm text-ink/60">
-              Or write to <EmailLink location="form_aside" campaign={c} className="font-semibold text-ink underline underline-offset-2" />
-            </p>
-          </div>
-          <div className="lg:col-span-7">
-            <LeadForm campaign={c} preselect={campaign.preselect} />
-          </div>
-        </div>
-      </section>
-
       {/* 11 ── FINAL CTA ─────────────────────────────────── */}
       <section aria-labelledby="final-title" className="relative isolate overflow-hidden py-20 sm:py-28">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -405,7 +395,7 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
             <ul className="mt-4 grid gap-4 text-sm text-paper/65 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
               {site.addresses.map((a) => (
                 <li key={a.label}>
-                  <span className="font-semibold text-paper">{a.city}</span>
+                  <span className="font-semibold text-paper">{a.label}</span>
                   <address className="mt-1 not-italic leading-relaxed">
                     {a.lines.map((l) => (
                       <span key={l} className="block">

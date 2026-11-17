@@ -37,17 +37,16 @@ export function GlobalPresence() {
             <Reveal key={a.label} delay={i * 0.08}>
               <address className="flex h-full flex-col rounded-[1.75rem] border border-fg/10 bg-ink-2 p-8 not-italic transition-colors duration-500 hover:border-fg/25">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">{a.label}</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">Office</span>
                   <LocalTime timeZone={tz[a.countryCode]} />
                 </div>
-                <p className="display mt-10 text-3xl">{a.city}</p>
+                <p className="display mt-10 text-3xl">{a.label}</p>
                 <p className="mt-4 text-sm leading-relaxed text-paper/60">
                   {a.lines.map((l) => (
                     <span key={l} className="block">
                       {l}
                     </span>
                   ))}
-                  <span className="block">{a.country}</span>
                 </p>
               </address>
             </Reveal>

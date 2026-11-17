@@ -61,7 +61,7 @@ export default function ContactPage() {
                 {site.addresses.map((a) => (
                   <li key={a.label} className="border-t border-fg/10 pt-5">
                     <div className="flex items-center justify-between gap-4">
-                      <p className="font-semibold">{a.city}</p>
+                      <p className="font-semibold">{a.label}</p>
                       <LocalTime timeZone={tz[a.countryCode]} />
                     </div>
                     <address className="mt-2 text-sm not-italic leading-relaxed text-paper/60">
@@ -70,7 +70,6 @@ export default function ContactPage() {
                           {l}
                         </span>
                       ))}
-                      <span className="block">{a.country}</span>
                     </address>
                   </li>
                 ))}

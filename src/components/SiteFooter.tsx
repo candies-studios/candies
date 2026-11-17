@@ -59,8 +59,7 @@ export function SiteFooter() {
             <ul className="mt-5 space-y-4 text-sm text-paper/70">
               {site.addresses.map((a) => (
                 <li key={a.label}>
-                  <span className="font-semibold text-paper">{a.city}</span>
-                  <span className="block text-paper/50">{a.country}</span>
+                  <span className="font-semibold text-paper">{a.label}</span>
                 </li>
               ))}
             </ul>

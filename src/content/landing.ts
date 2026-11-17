@@ -125,7 +125,7 @@ export const whyPoints = [
   { title: "Collaborative by default", body: "Open communication, clear review rounds and no surprises on scope or timelines." },
   { title: "Tailored to your business", body: "Solutions scoped to your goals and budget, whether you're a startup or an established brand." },
   { title: "Multi-industry experience", body: "Work for organisations in banking, financial services, payments, FMCG, media and healthcare." },
-  { title: "International perspective", body: "Offices in Navi Mumbai, Dubai and the USA, with work across India, the US, the UK, France, Australia and New Zealand." },
+  { title: "International perspective", body: "Offices in India, the UAE and the USA, with work across India, the US, the UK, France, Australia and New Zealand." },
 ];
 
 export const processSteps = [
