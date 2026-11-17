@@ -15,16 +15,11 @@
 
 export type Env = (key: string) => string | undefined;
 
-const INTERESTS = ["branding", "website", "digital-marketing", "seo", "social-media", "content", "events", "other"];
+const INTERESTS = ["website", "applications", "software"];
 const INTEREST_LABELS: Record<string, string> = {
-  branding: "Branding & Design",
-  website: "Website Design & Development",
-  "digital-marketing": "Digital Marketing",
-  seo: "SEO",
-  "social-media": "Social Media Marketing",
-  content: "Content Creation",
-  events: "Corporate Events",
-  other: "Other",
+  website: "Websites",
+  applications: "Applications (web & mobile)",
+  software: "Custom Software",
 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const COUNTRY_CODES: Record<string, string> = {

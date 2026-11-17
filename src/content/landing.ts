@@ -13,14 +13,9 @@
 /* ── Form options (edit freely) ───────────────────────────── */
 
 export const interestOptions = [
-  { id: "branding", label: "Branding & Design" },
-  { id: "website", label: "Website Design & Development" },
-  { id: "digital-marketing", label: "Digital Marketing" },
-  { id: "seo", label: "SEO" },
-  { id: "social-media", label: "Social Media Marketing" },
-  { id: "content", label: "Content Creation" },
-  { id: "events", label: "Corporate Events" },
-  { id: "other", label: "Other" },
+  { id: "website", label: "Websites", hint: "Corporate websites, e-commerce, landing pages" },
+  { id: "applications", label: "Applications", hint: "Web portals, dashboards, iOS & Android apps" },
+  { id: "software", label: "Software", hint: "Custom business software, automation, integrations" },
 ] as const;
 export type InterestId = (typeof interestOptions)[number]["id"];
 
@@ -53,87 +48,65 @@ export const countryOptions = [
 /* ── Section content ──────────────────────────────────────── */
 
 export const challenges: { problem: string; answer: string; service: string; interest: InterestId }[] = [
-  { problem: "Your brand looks different on every platform.", answer: "A unified identity system and guidelines your whole team can use.", service: "Design", interest: "branding" },
-  { problem: "Your website gets visits, not enquiries.", answer: "Conversion-focused UX and a fast, modern website.", service: "Websites & Applications", interest: "website" },
-  { problem: "Your social media lacks consistency.", answer: "Content pillars, calendars and creative that look and sound like you.", service: "Social & Content", interest: "social-media" },
-  { problem: "Your marketing has activity, but no clear strategy.", answer: "A channel plan tied to objectives, budgets and measurable KPIs.", service: "Digital Marketing", interest: "digital-marketing" },
-  { problem: "Customers don't quickly understand your value.", answer: "Sharper positioning, messaging and copy that sells.", service: "Content", interest: "content" },
-  { problem: "Your events don't feel like your brand.", answer: "End-to-end event concept, design and execution.", service: "Events", interest: "events" },
+  { problem: "Your website gets visits, not enquiries.", answer: "Conversion-focused UX, clear journeys and calls to action that turn visitors into leads.", service: "Websites", interest: "website" },
+  { problem: "Your site is slow, outdated or hard to update.", answer: "A fast, modern, mobile-first website with a CMS your team can actually use.", service: "Websites", interest: "website" },
+  { problem: "Your online store doesn't sell like it should.", answer: "E-commerce built around smooth browsing, trust and a frictionless checkout.", service: "Websites", interest: "website" },
+  { problem: "Your customers expect an app — you don't have one.", answer: "Web and mobile applications designed for real customer needs.", service: "Applications", interest: "applications" },
+  { problem: "Your team runs on spreadsheets and manual work.", answer: "Custom software that automates workflows and saves hours every week.", service: "Software", interest: "software" },
+  { problem: "Your systems don't talk to each other.", answer: "Integrations and APIs that connect your CRM, payments, ERP and tools.", service: "Software", interest: "software" },
 ];
 
 export const serviceCards = [
   {
-    key: "design",
-    title: "Design",
-    glyph: "design",
-    accent: "#5e79bb",
-    body: "Build a recognisable identity through thoughtful design, visual storytelling and compelling brand experiences.",
-    points: ["Brand identity & strategy", "Graphic & digital design", "Website UI/UX", "Visual storytelling"],
-    cta: "Explore Design Solutions",
-    interest: "branding" as InterestId,
-    href: "/services/design/",
-  },
-  {
-    key: "content",
-    title: "Content",
-    glyph: "content",
-    accent: "#e8577d",
-    body: "Communicate your brand story through strategic content that informs, engages and connects with your audience.",
-    points: ["Content strategy", "Copywriting", "Content creation", "Brand communication"],
-    cta: "Explore Content Solutions",
-    interest: "content" as InterestId,
-    href: "/services/content/",
-  },
-  {
-    key: "digital",
-    title: "Digital Marketing",
-    glyph: "digital-marketing",
-    accent: "#34b98a",
-    body: "Strengthen your digital presence through strategic marketing, SEO, social media and performance-oriented campaigns.",
-    points: ["SEO", "Social media marketing", "Influencer & email marketing", "Campaigns & lead generation"],
-    cta: "Explore Marketing Solutions",
-    interest: "digital-marketing" as InterestId,
-    href: "/services/digital-marketing/",
-  },
-  {
-    key: "web",
-    title: "Websites & Apps",
+    key: "websites",
+    title: "Websites",
     glyph: "websites-and-applications",
     accent: "#6046aa",
-    body: "Launch fast, secure websites and digital products designed to turn visitors into enquiries and customers.",
-    points: ["Corporate websites", "E-commerce", "Web & mobile apps", "CMS & integrations"],
-    cta: "Explore Web Solutions",
+    body: "Fast, secure, beautifully designed websites built around your customers' journey — and easy for your team to manage.",
+    points: ["Corporate websites", "E-commerce", "Landing pages & microsites", "CMS: WordPress, Webflow, Shopify"],
+    cta: "Explore Website Solutions",
     interest: "website" as InterestId,
     href: "/services/websites-and-applications/",
   },
   {
-    key: "events",
-    title: "Events",
-    glyph: "events",
-    accent: "#f2a33a",
-    body: "Create memorable brand experiences through thoughtfully planned corporate events, activations and launches.",
-    points: ["Corporate events", "Product launches", "Brand activations", "Event communication"],
-    cta: "Explore Event Solutions",
-    interest: "events" as InterestId,
-    href: "/services/events/",
+    key: "applications",
+    title: "Applications",
+    glyph: "content",
+    accent: "#5e79bb",
+    body: "Web and mobile applications that give your customers and teams a better way to work with you.",
+    points: ["Web apps & customer portals", "iOS & Android apps", "Progressive web apps", "Dashboards & admin panels"],
+    cta: "Explore Application Solutions",
+    interest: "applications" as InterestId,
+    href: "/services/websites-and-applications/",
+  },
+  {
+    key: "software",
+    title: "Custom Software",
+    glyph: "design",
+    accent: "#34b98a",
+    body: "Software tailored to how your business actually runs — automating workflows and connecting the tools you already use.",
+    points: ["Custom business software", "Workflow automation", "CRM, ERP & payment integrations", "Cloud hosting & maintenance"],
+    cta: "",
+    interest: "software" as InterestId,
+    href: "",
   },
 ];
 
 export const whyPoints = [
-  { title: "Strategy meets creativity", body: "Every idea starts from your objectives and audience — not from a template." },
-  { title: "Integrated capabilities", body: "Design, content, digital, web and events under one roof. One team, one brand voice." },
-  { title: "Collaborative by default", body: "Open communication, clear review rounds and no surprises on scope or timelines." },
-  { title: "Tailored to your business", body: "Solutions scoped to your goals and budget, whether you're a startup or an established brand." },
+  { title: "Design and engineering in one team", body: "What gets approved in design is exactly what gets built — no hand-off gaps between agencies." },
+  { title: "Built to convert", body: "Every page, screen and flow is designed around your business goal, not just how it looks." },
+  { title: "Fast, secure and scalable", body: "Modern stacks, performance budgets and security best practice from day one." },
+  { title: "Easy to own", body: "A CMS and admin tools your team can use, documented code and a clean hand-over." },
   { title: "Multi-industry experience", body: "Work for organisations in banking, financial services, payments, FMCG, media and healthcare." },
-  { title: "International perspective", body: "Offices in India, the UAE and the USA, with work across India, the US, the UK, France, Australia and New Zealand." },
+  { title: "Support after launch", body: "Hosting, maintenance and ongoing improvements — so your platform keeps getting better." },
 ];
 
 export const processSteps = [
-  { n: "01", title: "Discover", body: "We understand your business, objectives, challenges and audience." },
-  { n: "02", title: "Strategise", body: "We define the right creative and communication approach." },
-  { n: "03", title: "Create", body: "We turn ideas into meaningful creative solutions." },
-  { n: "04", title: "Execute", body: "We deliver the agreed work across the relevant channels." },
-  { n: "05", title: "Optimise", body: "We review performance, gather feedback and find what to improve." },
+  { n: "01", title: "Discover", body: "We understand your business, users, goals and technical requirements." },
+  { n: "02", title: "Plan", body: "We define the scope, architecture, timeline and investment." },
+  { n: "03", title: "Design", body: "Wireframes, UI design and clickable prototypes you approve before build." },
+  { n: "04", title: "Build & test", body: "Development in sprints with previews and testing across devices." },
+  { n: "05", title: "Launch & support", body: "Go-live, training, then maintenance and ongoing improvements." },
 ];
 
 /**
@@ -163,90 +136,23 @@ export type Campaign = {
 
 export const masterCampaign: Campaign = {
   slug: "",
-  name: "master",
-  eyebrow: "Creative & digital studio",
-  headline: ["Your brand deserves more than just", "marketing."],
+  name: "websites_apps_software",
+  eyebrow: "Websites, applications & software",
+  headline: ["Websites, apps and software that grow your", "business."],
   subcopy:
-    "From memorable brand identities to websites, content and campaigns, Candies Studio helps businesses communicate better, connect with audiences and grow.",
+    "From high-converting websites to web and mobile apps and custom software, Candies Studio designs and builds digital products that are fast, secure and easy for your team to manage.",
   preselect: [],
-  metaTitle: "Creative Agency for Branding, Websites, Marketing & Events",
+  featuredCard: "websites",
+  metaTitle: "Website, App & Software Development Company",
   metaDescription:
-    "Candies Studio is a creative and digital studio for branding, websites, content, digital marketing and corporate events. Tell us about your project.",
+    "Websites, web & mobile applications and custom software designed and built by Candies Studio. Tell us about your project and get a proposal.",
 };
 
-export const campaigns: Campaign[] = [
-  {
-    slug: "branding",
-    name: "branding",
-    eyebrow: "Branding & creative design",
-    headline: ["Build a brand people", "remember."],
-    subcopy:
-      "Strategy-led identities, visual systems and brand communication that make your business instantly recognisable — everywhere it shows up.",
-    preselect: ["branding"],
-    featuredCard: "design",
-    metaTitle: "Branding & Creative Design Agency",
-    metaDescription: "Brand identity, visual systems and creative design from Candies Studio. Request a proposal for your brand.",
-  },
-  {
-    slug: "websites",
-    name: "websites",
-    eyebrow: "Website design & development",
-    headline: ["Websites that turn visitors into", "enquiries."],
-    subcopy:
-      "Fast, secure, beautifully designed websites and web apps — built around your customers' journey and easy for your team to manage.",
-    preselect: ["website"],
-    featuredCard: "web",
-    metaTitle: "Website Design & Development Agency",
-    metaDescription: "Corporate websites, e-commerce and web apps designed and built by Candies Studio. Talk to our team.",
-  },
-  {
-    slug: "digital-marketing",
-    name: "digital_marketing",
-    eyebrow: "Digital marketing & SEO",
-    headline: ["Marketing with a plan, not just", "posts."],
-    subcopy:
-      "Search, social and performance campaigns tied to clear objectives — with creative and reporting your leadership can trust.",
-    preselect: ["digital-marketing", "seo"],
-    featuredCard: "digital",
-    metaTitle: "Digital Marketing & SEO Agency",
-    metaDescription: "SEO, performance marketing and digital strategy from Candies Studio. Get a creative consultation.",
-  },
-  {
-    slug: "social-media",
-    name: "social_media",
-    eyebrow: "Social media marketing",
-    headline: ["Social media that looks and sounds like", "you."],
-    subcopy:
-      "Content pillars, calendars, creative and community management that keep your brand consistent and your audience engaged.",
-    preselect: ["social-media"],
-    featuredCard: "digital",
-    metaTitle: "Social Media Marketing Agency",
-    metaDescription: "Social media strategy, content and management from Candies Studio. Let's discuss your brand.",
-  },
-  {
-    slug: "events",
-    name: "events",
-    eyebrow: "Corporate events & activations",
-    headline: ["Events your audience will", "talk about."],
-    subcopy:
-      "Corporate events, product launches and brand activations — concept, design, planning and on-ground execution by one team.",
-    preselect: ["events"],
-    featuredCard: "events",
-    metaTitle: "Corporate Events & Brand Activations",
-    metaDescription: "Corporate events, launches and brand activations planned and executed by Candies Studio. Request a proposal.",
-  },
-  {
-    slug: "content",
-    name: "content",
-    eyebrow: "Content marketing",
-    headline: ["Content that earns attention and", "trust."],
-    subcopy:
-      "Strategy, copywriting and production for content that answers your customers' real questions — and moves them to act.",
-    preselect: ["content"],
-    featuredCard: "content",
-    metaTitle: "Content Marketing & Copywriting Agency",
-    metaDescription: "Content strategy, copywriting and production from Candies Studio. Talk to our team.",
-  },
-];
+/**
+ * Additional campaign variants (/lp/<slug>/). Currently none — the master
+ * page at /lp/ is the only landing page. To add one later, add an entry here
+ * and restore src/app/lp/[campaign]/page.tsx (see docs/LANDING-PAGE.md).
+ */
+export const campaigns: Campaign[] = [];
 
 export const getCampaign = (slug: string) => campaigns.find((c) => c.slug === slug);

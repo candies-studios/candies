@@ -380,14 +380,14 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
               <fieldset aria-describedby={errors.interests ? "lf-interests-err" : undefined}>
                 <legend className="text-lg font-semibold tracking-tight">What are you looking for?</legend>
                 <p className="mt-1 text-sm text-[#15161f]/60">Choose all that apply.</p>
-                <div id="lf-interests" tabIndex={-1} className="mt-4 grid gap-2 outline-none sm:grid-cols-2">
+                <div id="lf-interests" tabIndex={-1} className="mt-4 grid gap-2.5 outline-none">
                   {interestOptions.map((o) => {
                     const on = v.interests.includes(o.id);
                     return (
                       <label
                         key={o.id}
                         className={cn(
-                          "flex min-h-12 cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-medium transition-all",
+                          "flex min-h-16 cursor-pointer items-center gap-4 rounded-2xl border px-4 py-3.5 transition-all",
                           on ? "border-candy bg-candy/[0.08] text-[#15161f]" : "border-[#15161f]/12 hover:border-[#15161f]/30",
                         )}
                       >
@@ -405,7 +405,10 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
                             </svg>
                           )}
                         </span>
-                        {o.label}
+                        <span>
+                          <span className="block text-[0.95rem] font-semibold">{o.label}</span>
+                          <span className="mt-0.5 block text-xs text-[#15161f]/60">{o.hint}</span>
+                        </span>
                       </label>
                     );
                   })}

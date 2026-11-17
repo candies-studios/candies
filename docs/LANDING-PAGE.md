@@ -1,18 +1,10 @@
 # Meta Ads landing pages — strategy, setup and launch guide
 
-Live URLs (after deploy):
+Live URL (after deploy): **`https://www.candies.studio/lp/`**, the Websites, Applications & Software landing page.
 
-| Page | URL | Pre-selected service |
-|---|---|---|
-| Master | `https://www.candies.studio/lp/` | — |
-| Branding & creative design | `/lp/branding/` | Branding & Design |
-| Website design & development | `/lp/websites/` | Website Design & Development |
-| Digital marketing & SEO | `/lp/digital-marketing/` | Digital Marketing, SEO |
-| Social media marketing | `/lp/social-media/` | Social Media Marketing |
-| Corporate events | `/lp/events/` | Corporate Events |
-| Content marketing | `/lp/content/` | Content Creation |
+The form asks visitors to choose from three requirements: **Websites**, **Applications** and **Software**. Earlier variant URLs (`/lp/websites/`, `/lp/branding/`, …) redirect to `/lp/` and keep their UTM and ad parameters.
 
-Landing pages are `noindex` (paid traffic only) but remain crawlable so Meta can review ads.
+The landing page is `noindex` (paid traffic only) but remain crawlable so Meta can review ads.
 
 ---
 
@@ -145,7 +137,7 @@ Then go to **Actions → Deploy to GitHub Pages → Run workflow**.
 ## 6. Launching the first Meta campaign
 
 1. **Objective:** create a **Leads** campaign. For the conversion location choose **Website**, select your Pixel, and choose the **Lead** event.
-2. **Website URL:** use the variant that matches the ad, e.g. `https://www.candies.studio/lp/websites/`.
+2. **Website URL:** `https://www.candies.studio/lp/`
 3. **URL parameters** (Ad → Tracking → URL parameters), paste:
    ```
    utm_source=facebook&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}&utm_term={{adset.name}}&campaign_id={{campaign.id}}&adset_id={{adset.id}}&ad_id={{ad.id}}&placement={{placement}}&site_source_name={{site_source_name}}
@@ -171,30 +163,13 @@ Then go to **Actions → Deploy to GitHub Pages → Run workflow**.
 - **CRM later:** point `LEAD_WEBHOOK_URL` at Zapier, Make or HubSpot, or sync the table. Every attribution field is stored, so CRM reports can show campaign ROI.
 - Export any time with **Table Editor → Export CSV**.
 
-## 9. Adding a new campaign landing page
+## 9. Editing the landing page or adding variants later
 
-Add one object to `campaigns` in `src/content/landing.ts`:
-
-```ts
-{
-  slug: "real-estate-branding",         // → /lp/real-estate-branding/
-  name: "real_estate_branding",         // reported to Meta/GA as content_name
-  eyebrow: "Branding for developers",
-  headline: ["Launch projects buyers", "remember."],
-  subcopy: "…",
-  preselect: ["branding", "digital-marketing"],
-  featuredCard: "design",
-  metaTitle: "…",
-  metaDescription: "…",
-}
-```
-
-Commit it. The deploy builds the new page automatically.
-
-**Other content:**
-- Edit challenges, service cards, process, budgets and timelines in the same file.
-- Testimonials stay hidden until you add **verified, approved** quotes to `testimonials`.
-- Case studies appear automatically once projects in `src/content/projects.ts` have `published: true`.
+- **Copy:** all copy, challenges, service cards, process steps, budgets and timelines live in `src/content/landing.ts` (`masterCampaign` holds the hero copy).
+- **Form options:** the three form options are `interestOptions` in the same file. If you change them, also update `INTERESTS` and `INTEREST_LABELS` in `supabase/functions/_shared/handler.ts`, then redeploy the function.
+- **Variants:** to bring back separate pages (e.g. `/lp/ecommerce/`), add entries to `campaigns` and restore the dynamic route `src/app/lp/[campaign]/page.tsx` (available in the repo history).
+- **Testimonials:** they stay hidden until verified quotes are added.
+- **Case studies:** they appear once projects in `src/content/projects.ts` are published.
 
 ## 10. QA report (17 Nov 2026)
 

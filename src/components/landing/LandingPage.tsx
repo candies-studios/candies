@@ -126,7 +126,7 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
           <dl className="mt-10 grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
             {[
               [`${site.combinedExperienceYears}+ years`, "of combined creative experience"],
-              ["5 disciplines", "Design, content, digital, web & events"],
+              ["One team", "Strategy, design and development"],
               ["3 offices", "India, UAE and USA"],
               ["6 markets", site.footprint.join(", ")],
             ].map(([k, d]) => (
@@ -144,7 +144,7 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
         <div className="container-x">
           <Eyebrow>Sound familiar?</Eyebrow>
           <h2 id="challenge-title" className="display mt-5 max-w-[20ch] text-[clamp(1.8rem,4.4vw,3.4rem)]">
-            Is your brand getting the <span className="serif-accent text-candy-deep">attention it deserves?</span>
+            Is your digital platform holding your <span className="serif-accent text-candy-deep">business back?</span>
           </h2>
           <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {challenges.map((ch, i) => (
@@ -171,20 +171,15 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
         <div className="container-x">
           <Eyebrow>Our services</Eyebrow>
           <h2 id="services-title" className="display mt-5 max-w-[18ch] text-[clamp(1.8rem,4.4vw,3.4rem)]">
-            Everything your brand needs to <span className="serif-accent text-candy-deep">stand out.</span>
+            Everything you need to build and <span className="serif-accent text-candy-deep">grow online.</span>
           </h2>
-          <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {cards.map((s, i) => (
-              <Reveal as="li" key={s.key} delay={(i % 3) * 0.05} className={i === 0 && campaign.featuredCard ? "md:col-span-2 lg:col-span-1" : ""}>
+              <Reveal as="li" key={s.key} delay={(i % 3) * 0.05}>
                 <article className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-ink/[0.08] bg-white p-6 sm:p-7">
                   <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full opacity-25 blur-[60px]" style={{ background: s.accent }} />
                   <div className="flex items-start justify-between">
                     <ServiceGlyph slug={s.glyph} accent={s.accent} className="w-24" />
-                    {i === 0 && campaign.featuredCard && (
-                      <span className="rounded-full px-3 py-1 text-xs font-semibold text-white" style={{ background: s.accent }}>
-                        Most requested for you
-                      </span>
-                    )}
                   </div>
                   <h3 className="display mt-4 text-2xl">{s.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink/65">{s.body}</p>
@@ -199,9 +194,11 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
                     <EnquireButton location={`service_${s.key}`} campaign={c} interests={[s.interest]} className="min-h-11 px-5 py-2.5">
                       Request a Proposal
                     </EnquireButton>
-                    <a href={s.href} target="_blank" rel="noopener" className="text-sm font-semibold underline-offset-4 hover:underline" style={{ color: s.accent }}>
-                      {s.cta} ↗
-                    </a>
+                    {s.href && s.cta && (
+                      <a href={s.href} target="_blank" rel="noopener" className="text-sm font-semibold underline-offset-4 hover:underline" style={{ color: s.accent }}>
+                        {s.cta} ↗
+                      </a>
+                    )}
                   </div>
                 </article>
               </Reveal>
@@ -354,7 +351,7 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
             Your next big idea starts with a <span className="serif-accent text-candy-deep">conversation.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-paper/70">
-            Let&apos;s discuss how Candies Studio can help your business create a stronger brand presence and meaningful digital experiences.
+            Tell us what you want to build. We&apos;ll help you scope the right website, application or software for your business.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <EnquireButton location="final_cta" campaign={c} interests={campaign.preselect}>

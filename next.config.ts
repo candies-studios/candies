@@ -15,6 +15,7 @@ const legacyRedirects = [
   { source: "/events", destination: "/services/events" },
   { source: "/morning-coffee-groove", destination: "/services/events" },
   { source: "/wp-admin/:path*", destination: "/" },
+  { source: "/lp/:variant(websites|branding|digital-marketing|social-media|events|content)", destination: "/lp/" },
   { source: "/wp-login.php", destination: "/" },
 ];
 

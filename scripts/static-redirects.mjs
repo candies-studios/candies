@@ -17,6 +17,13 @@ const map = {
   "morning-coffee-groove": "/services/events/",
   "home-creative-agency": "/",
   "2023/03/07/hello-world": "/insights/",
+  // retired landing-page variants → main landing page (keeps UTM/ad parameters)
+  "lp/websites": "/lp/",
+  "lp/branding": "/lp/",
+  "lp/digital-marketing": "/lp/",
+  "lp/social-media": "/lp/",
+  "lp/events": "/lp/",
+  "lp/content": "/lp/",
 };
 
 for (const [from, to] of Object.entries(map)) {
@@ -25,7 +32,7 @@ for (const [from, to] of Object.entries(map)) {
   await mkdir(dir, { recursive: true });
   await writeFile(
     join(dir, "index.html"),
-    `<!doctype html><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${target}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${target}"><script>location.replace(${JSON.stringify(target)})</script><a href="${target}">Continue</a>`,
+    `<!doctype html><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="${target}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${target}"><script>location.replace(${JSON.stringify(target)}+location.search+location.hash)</script><a href="${target}">Continue</a>`,
   );
 }
 await writeFile(join("out", ".nojekyll"), "");
