@@ -30,18 +30,6 @@ export function LPHeader({ campaign }: { campaign: string }) {
             <Link href="/" aria-label="Candies Studio — main website" className="shrink-0 pl-1">
               <Logo />
             </Link>
-            <nav aria-label="Page sections" className="hidden items-center gap-1 text-sm font-medium text-paper/70 lg:flex">
-              {[
-                ["services", "Services"],
-                ["experience", "Experience"],
-                ["process", "Process"],
-                ["enquire", "Contact"],
-              ].map(([id, label]) => (
-                <a key={id} href={`#${id}`} className="rounded-full px-3.5 py-2 transition-colors hover:bg-fg/5 hover:text-paper">
-                  {label}
-                </a>
-              ))}
-            </nav>
             <div className="flex items-center gap-2">
               <WhatsAppLink
                 location="header"
