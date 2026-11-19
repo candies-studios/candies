@@ -1,136 +1,41 @@
-# Candies Studio — website
+# Candies Studio — lead backend for GoDaddy (PHP + MySQL)
 
-The new www.candies.studio: a custom Next.js site with a WebGL hero, motion design, a working enquiry form and SEO built in. It replaces the old WordPress theme.
+The landing-page form sends each enquiry here. This script saves it in your
+MySQL database, emails your team, sends the visitor a confirmation, and (optionally)
+sends the "Lead" to Meta's Conversions API.
 
-**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Three.js / React Three Fiber · Framer Motion. There is no CMS. All content lives in typed files under `src/content/`.
+## 1. Create the database (cPanel)
+1. cPanel → **MySQL® Databases** → create a database (e.g. `candies_leads`).
+2. Create a user with a strong password and **add it to the database with ALL PRIVILEGES**.
+3. cPanel → **phpMyAdmin** → open the database → **SQL** tab → paste `schema.sql` → **Go**.
 
----
+## 2. Upload the files
+1. cPanel → **File Manager** → in the folder for your backend domain, create a folder `leads`.
+   (Recommended: a subdomain such as `api.candies.studio`. Create it under cPanel → Domains,
+   and add a DNS **A record** `api` → your GoDaddy hosting IP. Your main `www` site stays on GitHub.)
+2. Upload `lead-submit.php` and `.htaccess` into `leads/`.
+3. Copy `config.sample.php` → `config.php` in the same folder and fill in:
+   database name/user/password, `notify_to`, `mail_from` (an email on your domain),
+   `ip_salt` (any long random text), and optionally `meta_capi_token`.
 
-## 1. First-time setup
+Your endpoint is now e.g. `https://api.candies.studio/leads/lead-submit.php`
 
-```bash
-nvm use               # Node 22 (see .nvmrc; Node ≥ 20.9 required)
-npm install
-npm run assets:pull   # ⚠️ run once, while the old WordPress site is still online
-cp .env.example .env.local
-npm run dev           # http://localhost:3000
-```
+## 3. Connect the website (GitHub)
+Repo → Settings → Secrets and variables → Actions → **Variables**:
+- `LEAD_ENDPOINT` = your endpoint URL from step 2
+- `SUPABASE_ANON_KEY` = delete it / leave empty
+- `FORM_ENDPOINT` = can be left as backup (only used if LEAD_ENDPOINT is empty)
 
-### ⚠️ `npm run assets:pull`: do this before switching domains
+Then Actions → re-run the deploy (or push any change).
 
-This script downloads the **genuine assets** from the current WordPress site into `public/media/`: the logo and candy mark, favicons, all 9 team portraits, the 11 client logos and the event poster. **Commit `public/media/` after running it.** The site still works without these files (it shows monograms, client names and a CSS candy mark instead), but it is meant to ship with them.
+## 4. Test
+Submit the form on https://www.candies.studio/lp/ — you should land on the thank-you
+page, get the email, and see the row in phpMyAdmin (`leads` table).
+Meta: put a code in `meta_test_event_code`, check Events Manager → Test events, then clear it.
 
-## 2. Deploy
-
-### Option A: GitHub Pages (already set up in this repo)
-
-`.github/workflows/deploy-pages.yml` builds a **static** version of the site and publishes it on every push to `main`.
-
-**One-time setup:**
-
-1. In the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**. Without this step, Pages just shows the README.
-2. Push to `main`, or run the workflow from the **Actions** tab. The site goes live at `https://<org>.github.io/<repo>/`.
-3. Set up the contact form. Static hosting has no server, so enquiries go to a form service. Go to **Settings → Secrets and variables → Actions → Variables** and add:
-   - `FORM_ENDPOINT`: for example, a [Formspree](https://formspree.io) form URL (`https://formspree.io/f/xxxx`), or `https://api.web3forms.com/submit`
-   - `FORM_ACCESS_KEY`: only needed for Web3Forms (your access key)
-   - Optional: `WHATSAPP_NUMBER`, `GA_ID`, and `CUSTOM_DOMAIN` (e.g. `www.candies.studio`, which writes the CNAME file and removes the `/repo` path prefix)
-
-   If no `FORM_ENDPOINT` is set, the form tells visitors to email create@candies.studio. It never pretends to send.
-4. The workflow also runs `assets:pull`, so the real logo, team photos and client logos are included even if you haven't committed them yet.
-
-The old WordPress URLs (`/about-us/`, `/contact-us/`, etc.) get small HTML redirect pages, because Pages can't do server redirects.
-
-Test the static build locally:
-
-```bash
-STATIC_EXPORT=true NEXT_PUBLIC_STATIC_EXPORT=true npm run build && node scripts/static-redirects.mjs
-npx serve out
-```
-
-### Option B: Vercel / Node hosting (full features)
-
-1. Push this repo to GitHub.
-2. In Vercel, choose **Import Project** and select the repo. The framework is detected automatically.
-3. Add the environment variables from `.env.example` (see below).
-4. Point `candies.studio` / `www.candies.studio` at Vercel.
-
-The old WordPress URLs redirect permanently (308) to the new pages (see `next.config.ts`):
-
-| Old URL | New URL |
-|---|---|
-| `/about-us/` | `/about` |
-| `/contact-us/` | `/contact` |
-| `/portfolio-pages/work/`, `/project/*` | `/work` |
-| `/blog/`, `/YYYY/MM/DD/*` | `/insights` |
-| `/events/`, `/morning-coffee-groove/` | `/services/events` |
-| `/home-creative-agency/` | `/` |
-
-It also runs on any Node host (`npm run build && npm start`), e.g. Netlify, Render or a VPS.
-
-## 3. Contact form: configure at least one delivery channel
-
-The form posts to `/api/enquiry`, which validates on the server, checks for spam and then delivers the enquiry. **If no channel is configured, the form shows an error. It never shows a fake success message.**
-
-| Variable | Purpose |
-|---|---|
-| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Sends each enquiry by email through [Resend](https://resend.com). Verify the `candies.studio` domain in Resend first. Reply-To is set to the person who enquired. |
-| `CONTACT_WEBHOOK_URL`, `CONTACT_WEBHOOK_SECRET` | POSTs the enquiry as JSON to Zapier, Make, a Google Sheet (Apps Script) or a CRM, so every lead is stored. The secret is sent as the `x-candies-signature` header. |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile spam check. Optional but recommended. |
-
-Spam protection that is always on: a honeypot field, a minimum fill time, a per-IP rate limit (5 per 10 minutes) and server-side validation. Output is HTML-escaped in emails.
-
-**Recommended:** set up both Resend (so the team gets an email) and a webhook to a Google Sheet or CRM (so leads are stored permanently).
-
-## 4. Other optional settings
-
-- `NEXT_PUBLIC_SITE_URL`: the canonical domain (default `https://www.candies.studio`)
-- `NEXT_PUBLIC_WHATSAPP_NUMBER`: digits only, e.g. `9198XXXXXXXX`. Shows WhatsApp links in the footer and on the contact page.
-- `NEXT_PUBLIC_GA_ID`: Google Analytics 4. The form fires a `generate_lead` event on success.
-
-## 5. Editing content
-
-| What | File |
-|---|---|
-| Email, addresses, markets, social links, mantra | `src/content/site.ts` |
-| Team (names, roles, photos) | `src/content/team.ts` |
-| Client logos | `src/content/clients.ts` |
-| Services: copy, deliverables, benefits, process | `src/content/services.ts` |
-| Values, "Why us" pillars, methodology | `src/content/studio.ts` |
-| **Portfolio / case studies** | `src/content/projects.ts` (a template is included) |
-| **Insights articles** | `src/content/insights.ts` (an example is included) |
-
-Each section shows only what exists. Empty social links are hidden. Case-study layouts appear as soon as the first project has `published: true`. Category filters appear only for categories that have projects.
-
-See **`docs/CONTENT-GAPS.md`** for the information the studio still needs to supply.
-
-## 6. Project structure
-
-```
-src/
-  app/                 routes (home, about, services/[slug], work/[slug], insights/[slug], contact, api/enquiry)
-                       + sitemap.ts, robots.ts, opengraph-image.tsx, not-found.tsx
-  components/
-    sections/          page sections (Hero, Capabilities, ClientShowcase, …)
-    three/             WebGL hero (CandyScene) + static fallback (HeroVisual)
-  content/             all editable content
-  lib/                 SEO helper, enquiry validation, utilities
-scripts/fetch-assets.mjs
-docs/                  audit, design strategy, content gaps
-```
-
-## 7. Performance and accessibility notes
-
-- The 3D hero loads lazily on the client and has no external models or HDR files: geometry and textures are generated in code. It pauses when off-screen, limits device pixel ratio, and uses a lighter layout below 1024px.
-- **Fallbacks:** a static CSS composition is shown for `prefers-reduced-motion`, Save-Data connections and devices without WebGL.
-- All animations respect `prefers-reduced-motion`.
-- The site includes a skip link, semantic headings, labelled form fields with inline errors, visible focus states, `aria-current` navigation and a keyboard-closable mobile menu.
-- **SEO:** each page has its own title, description and canonical URL. Open Graph and Twitter cards are generated. The site has Organization, Service and Article JSON-LD, `sitemap.xml` and `robots.txt`.
-
-## Scripts
-
-| | |
-|---|---|
-| `npm run dev` | Local dev server |
-| `npm run build` / `npm start` | Production build and serve |
-| `npm run typecheck` | TypeScript check |
-| `npm run assets:pull` | Download genuine assets from the old site (`-- --force` to re-download) |
+## Notes
+- Allowed websites: `allowed_origins` in config.php. Add any other domain you use.
+- Spam protection: hidden honeypot field, minimum fill time, 5 enquiries / 10 min per IP.
+- Lead status column (`new`, `contacted`, `qualified`, `proposal_sent`, `converted`, `lost`)
+  can be updated in phpMyAdmin for follow-up.
+- If emails don't arrive, check spam, and make sure `mail_from` uses your own domain.
