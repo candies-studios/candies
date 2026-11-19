@@ -65,11 +65,8 @@ export function validateLead(raw: Record<string, unknown>) {
   const digits = lead.phone.replace(/\D/g, "");
   if (digits.length < 7 || digits.length > 15) errors.phone = "A valid phone number is required.";
   if (lead.country.length < 2) errors.country = "Country is required.";
-  if (lead.company.length < 2) errors.company = "Company is required.";
   if (!lead.interests.length) errors.interests = "Choose at least one service.";
   if (lead.message.length < 15) errors.message = "Please describe your requirement.";
-  if (!lead.budget) errors.budget = "Budget is required.";
-  if (!lead.timeline) errors.timeline = "Timeline is required.";
   if (!lead.consent) errors.consent = "Consent is required.";
   return { lead, errors };
 }
@@ -157,7 +154,10 @@ export async function handleLead(req: Request, env: Env, fetchImpl: typeof fetch
 
   const row = {
     ...lead,
+    company: lead.company || null,
     designation: lead.designation || null,
+    budget: lead.budget || null,
+    timeline: lead.timeline || null,
     campaign,
     landing_page_url: pageUrl || null,
     referrer: str(last.referrer || first.referrer, 500) || null,
@@ -209,14 +209,11 @@ export async function handleLead(req: Request, env: Env, fetchImpl: typeof fetch
     const rows: [string, string][] = [
       ["Reference", reference],
       ["Name", lead.name],
-      ["Company", lead.company],
-      ["Designation", lead.designation || "—"],
+      ["Company", lead.company || "—"],
       ["Email", lead.email],
       ["Phone", lead.phone],
       ["Country", lead.country],
       ["Services", interestLabels],
-      ["Budget", lead.budget],
-      ["Timeline", lead.timeline],
       ["Landing page", campaign],
       ["Source / medium", `${row.utm_source || "—"} / ${row.utm_medium || "—"}`],
       ["Campaign", row.utm_campaign || "—"],
@@ -233,7 +230,7 @@ export async function handleLead(req: Request, env: Env, fetchImpl: typeof fetch
           from,
           to,
           reply_to: lead.email,
-          subject: `New lead ${reference} — ${lead.company} (${interestLabels})`,
+          subject: `New lead ${reference} — ${lead.company || lead.name} (${interestLabels})`,
           html,
           text: rows.map(([k, v]) => `${k}: ${v}`).join("\n") + `\n\n${lead.message}`,
         }),

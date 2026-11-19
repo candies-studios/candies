@@ -23,7 +23,7 @@ create table if not exists public.leads (
   email            text not null,
   phone            text not null,
   country          text not null,
-  company          text not null,
+  company          text,
   designation      text,
 
   -- requirement
