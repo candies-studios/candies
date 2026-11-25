@@ -179,7 +179,7 @@ Then go to **Actions → Deploy to GitHub Pages → Run workflow**.
 | First screen on mobile (360–430) | Headline, copy and primary CTA visible without scrolling |
 | Form validation | Each step blocks with inline errors and focuses the first error |
 | Variant pre-selection | `/lp/websites/` ticks Website; `/lp/events/` ticks Corporate Events |
-| Budget currency | Follows the selected country: United Arab Emirates → AED, United States → USD, India → INR (`src/content/countries.ts`) |
+| Budget currency | Follows the selected country: United Arab Emirates → AED, United States → USD (`src/content/countries.ts`) |
 | Successful submission (end to end, with a mocked Supabase/Resend/Meta) | Stored with all UTM and Meta IDs and the fbclid; email sent; CAPI sent; success screen with reference |
 | Browser/server dedup | Pixel `eventID` equals CAPI `event_id`; exactly one Lead per submission |
 | Backend unreachable | Clear error shown, no Lead event fired |

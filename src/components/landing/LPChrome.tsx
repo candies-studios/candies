@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import { EnquireButton, WhatsAppLink, WhatsAppIcon } from "./actions";
 import { trackStandard, once } from "@/lib/tracking";
 
-/** Sticky landing-page header: logo, in-page anchors, prominent enquiry CTA. */
+/** Sticky landing-page header: logo and WhatsApp link. */
 export function LPHeader({ campaign }: { campaign: string }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -36,11 +36,6 @@ export function LPHeader({ campaign }: { campaign: string }) {
                 campaign={campaign}
                 className="grid size-11 place-items-center rounded-full border border-fg/15 text-[#25D366] transition-colors hover:border-fg/40"
               />
-              <span className="hidden sm:block">
-                <EnquireButton location="header" campaign={campaign} className="min-h-11 px-5 py-2.5">
-                  Let&apos;s Discuss Your Project
-                </EnquireButton>
-              </span>
             </div>
           </div>
         </div>

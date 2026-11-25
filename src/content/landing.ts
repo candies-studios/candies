@@ -19,14 +19,6 @@ export const interestOptions = [
 ] as const;
 export type InterestId = (typeof interestOptions)[number]["id"];
 
-/**
- * Budget ranges shown on the form. Configurable — these are not price
- * commitments. The currency follows the Country the visitor selects:
- * India → rupees (ranges below), United States → dollars, UAE → dirhams
- * (see src/content/countries.ts and src/lib/budget.ts).
- */
-export const inrBudgetOptions = ["Under ₹2 lakh", "₹2–5 lakh", "₹5–15 lakh", "₹15–40 lakh", "₹40 lakh+", "Not sure yet"] as const;
-
 export const timelineOptions = ["As soon as possible", "Within 1 month", "1–3 months", "3–6 months", "Just exploring"] as const;
 
 /* ── Section content ──────────────────────────────────────── */

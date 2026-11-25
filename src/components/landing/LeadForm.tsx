@@ -72,7 +72,7 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
     setV((cur) => ({ ...cur, [k]: value }));
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
-  // Budget currency follows the selected country (India → ₹, United States → $, UAE → AED)
+  // Budget currency follows the selected country (United States → $, UAE → AED)
   const selectedCountry = findCountry(v.country);
   const currency = selectedCountry?.currency || "";
   const budgetChoices = currency ? budgetOptionsFor(currency) : [];
@@ -327,7 +327,7 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
               </svg>
               {currency && !errors.budget && (
                 <p id="lf-budget-hint" className="mt-1.5 text-xs text-[#15161f]/55">
-                  Shown in {currencyName(currency)} for {v.country}. A rough range is fine; it helps us suggest the right approach.
+                  Shown in {currencyName(currency)}. A rough range is fine; it helps us suggest the right approach.
                 </p>
               )}
               <Err k="budget" />

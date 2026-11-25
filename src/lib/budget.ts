@@ -1,10 +1,9 @@
 /**
  * Budget options in the visitor's local currency.
- * The currency comes from the Country field: India → rupees,
+ * The currency comes from the Country field:
  * United States → dollars, United Arab Emirates → dirhams.
  */
 import { budgetTiers, countries, type Country } from "@/content/countries";
-import { inrBudgetOptions } from "@/content/landing";
 
 export const NOT_SURE = "Not sure yet";
 
@@ -21,7 +20,6 @@ export function currencyName(code: string) {
 
 /** The six budget choices for a currency, e.g. ["Under $3K", "$3K–$7.5K", …, "Not sure yet"]. */
 export function budgetOptionsFor(currency: string): string[] {
-  if (currency === "INR") return [...inrBudgetOptions];
   const code = budgetTiers[currency] ? currency : "USD";
   const [a, b, c, d] = budgetTiers[code];
   let f: (n: number) => string;

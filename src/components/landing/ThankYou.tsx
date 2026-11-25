@@ -28,7 +28,7 @@ export function ThankYou() {
       once(p.eventId, () =>
         trackStandard(
           "Lead",
-          { content_name: p!.campaign, content_category: p!.interests.join(","), currency: p!.currency || (p!.country === "India" ? "INR" : "USD"), value: 0 },
+          { content_name: p!.campaign, content_category: p!.interests.join(","), currency: p!.currency || "USD", value: 0 },
           p!.eventId,
         ),
       );
