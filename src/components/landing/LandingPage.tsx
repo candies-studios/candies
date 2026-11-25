@@ -419,9 +419,6 @@ export function LandingPage({ campaign }: { campaign: Campaign }) {
         <div className="container-x mt-12 flex flex-col gap-3 border-t border-fg/10 pt-6 text-xs text-paper/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <nav aria-label="Legal" className="flex gap-5">
-            <Link href="/privacy/" className="hover:text-paper">
-              Privacy Policy
-            </Link>
             <Link href="/terms/" className="hover:text-paper">
               Terms &amp; Conditions
             </Link>
