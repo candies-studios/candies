@@ -21,29 +21,13 @@ export type InterestId = (typeof interestOptions)[number]["id"];
 
 /**
  * Budget ranges shown on the form. Configurable — these are not price
- * commitments. Shown in INR for India visitors and USD elsewhere
- * (based on the Country field). Edit to match how the studio quotes.
+ * commitments. The currency follows the Country the visitor selects:
+ * India → rupees (ranges below), United States → dollars, UAE → dirhams
+ * (see src/content/countries.ts and src/lib/budget.ts).
  */
-export const budgetOptions = {
-  INR: ["Under ₹2 lakh", "₹2–5 lakh", "₹5–15 lakh", "₹15–40 lakh", "₹40 lakh+", "Not sure yet"],
-  USD: ["Under $3k", "$3k–$7.5k", "$7.5k–$20k", "$20k–$50k", "$50k+", "Not sure yet"],
-} as const;
+export const inrBudgetOptions = ["Under ₹2 lakh", "₹2–5 lakh", "₹5–15 lakh", "₹15–40 lakh", "₹40 lakh+", "Not sure yet"] as const;
 
 export const timelineOptions = ["As soon as possible", "Within 1 month", "1–3 months", "3–6 months", "Just exploring"] as const;
-
-/** Countries listed first in the selector (others available via "Other"). */
-export const countryOptions = [
-  "India",
-  "United Arab Emirates",
-  "United States",
-  "United Kingdom",
-  "Saudi Arabia",
-  "Qatar",
-  "Singapore",
-  "Australia",
-  "Canada",
-  "Other",
-] as const;
 
 /* ── Section content ──────────────────────────────────────── */
 

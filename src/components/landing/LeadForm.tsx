@@ -3,7 +3,9 @@
 import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { countryOptions, interestOptions, type InterestId } from "@/content/landing";
+import { interestOptions, type InterestId } from "@/content/landing";
+import { countries } from "@/content/countries";
+import { budgetOptionsFor, budgetValue, currencyName, findCountry } from "@/lib/budget";
 import { emptyLead, validateLead, THANKS_KEY, type LeadErrors, type LeadInput, type ThanksPayload } from "@/lib/lead";
 import { getAttribution, getConsent, getCookie, newEventId, once, trackCustom } from "@/lib/tracking";
 import { site } from "@/content/site";
@@ -70,6 +72,18 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
     setV((cur) => ({ ...cur, [k]: value }));
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
+  // Budget currency follows the selected country (India → ₹, United States → $, UAE → AED)
+  const selectedCountry = findCountry(v.country);
+  const currency = selectedCountry?.currency || "";
+  const budgetChoices = currency ? budgetOptionsFor(currency) : [];
+  const setCountry = (name: string) => {
+    const next = findCountry(name)?.currency;
+    set("country", name);
+    // A range in one currency means nothing in another, so ask again when the currency changes
+    if (next !== currency) setV((cur) => ({ ...cur, country: name, budget: "" }));
+    if (errors.budget) setErrors((e) => ({ ...e, budget: undefined }));
+  };
+
   const toggleInterest = (id: string) =>
     set("interests", v.interests.includes(id) ? v.interests.filter((i) => i !== id) : [...v.interests, id]);
 
@@ -90,7 +104,16 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
     if (!eventId.current) eventId.current = newEventId("lead");
     const attribution = getAttribution();
     const pageUrl = window.location.href.split("#")[0];
-    const lead = { ...v, name: v.name.trim(), email: v.email.trim().toLowerCase(), phone: v.phone.trim(), message: v.message.trim() };
+    const lead = {
+      ...v,
+      name: v.name.trim(),
+      email: v.email.trim().toLowerCase(),
+      phone: v.phone.trim(),
+      message: v.message.trim(),
+      budget: budgetValue(v.budget, currency),
+      currency,
+      country_code: selectedCountry?.code || "",
+    };
     const labels = lead.interests.map((i) => interestOptions.find((o) => o.id === i)?.label || i).join(", ");
 
     setStatus({ kind: "sending" });
@@ -135,6 +158,7 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
             email: lead.email,
             phone: lead.phone,
             country: lead.country,
+            budget: lead.budget,
             interests: labels,
             message: lead.message,
             consent: "Yes",
@@ -165,6 +189,7 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
         firstName: lead.name.split(" ")[0],
         reference,
         country: lead.country,
+        currency,
       };
       try {
         sessionStorage.setItem(THANKS_KEY, JSON.stringify(payload));
@@ -246,7 +271,7 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
                 id="lf-country"
                 name="country"
                 value={v.country}
-                onChange={(e) => set("country", e.target.value)}
+                onChange={(e) => setCountry(e.target.value)}
                 aria-invalid={Boolean(errors.country)}
                 aria-describedby={errors.country ? "lf-country-err" : undefined}
                 required
@@ -255,9 +280,9 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
                 <option value="" disabled>
                   Select…
                 </option>
-                {countryOptions.map((o) => (
-                  <option key={o} value={o}>
-                    {o}
+                {countries.map((c) => (
+                  <option key={c.code} value={c.name}>
+                    {c.name}
                   </option>
                 ))}
               </select>
@@ -268,6 +293,44 @@ export function LeadForm({ campaign, preselect = [] }: { campaign: string; prese
                 <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" />
               </svg>
               <Err k="country" />
+            </div>
+            <div className="relative sm:col-span-2">
+              <select
+                id="lf-budget"
+                name="budget"
+                value={v.budget}
+                onChange={(e) => set("budget", e.target.value)}
+                disabled={!currency}
+                aria-invalid={Boolean(errors.budget)}
+                aria-describedby={[currency ? "lf-budget-hint" : "", errors.budget ? "lf-budget-err" : ""].join(" ").trim() || undefined}
+                required
+                className={cn(
+                  fieldCls("budget"),
+                  "appearance-none pr-10 disabled:cursor-not-allowed disabled:bg-[#15161f]/[0.03]",
+                  !v.budget && "text-[#15161f]/45",
+                )}
+              >
+                <option value="" disabled>
+                  {currency ? "Select a range…" : "Select your country first"}
+                </option>
+                {budgetChoices.map((o) => (
+                  <option key={o} value={o}>
+                    {o}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="lf-budget" className={labelCls}>
+                Estimated budget{currency ? ` (${currency})` : ""}
+              </label>
+              <svg aria-hidden viewBox="0 0 24 24" className="pointer-events-none absolute right-4 top-[1.6rem] size-4 text-[#15161f]/50">
+                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" />
+              </svg>
+              {currency && !errors.budget && (
+                <p id="lf-budget-hint" className="mt-1.5 text-xs text-[#15161f]/55">
+                  Shown in {currencyName(currency)} for {v.country}. A rough range is fine; it helps us suggest the right approach.
+                </p>
+              )}
+              <Err k="budget" />
             </div>
           </div>
         </fieldset>

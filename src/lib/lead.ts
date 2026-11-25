@@ -10,6 +10,8 @@ export type LeadInput = {
   email: string;
   phone: string;
   country: string;
+  /** Budget range label in the visitor's currency (currency follows the country). */
+  budget: string;
   interests: string[];
   message: string;
   consent: boolean;
@@ -22,6 +24,7 @@ export const emptyLead: LeadInput = {
   email: "",
   phone: "",
   country: "",
+  budget: "",
   interests: [],
   message: "",
   consent: false,
@@ -37,6 +40,7 @@ export function validateLead(v: LeadInput): LeadErrors {
   if (digits.length < 7 || digits.length > 15 || !/^[+()\-.\s\d]+$/.test(v.phone.trim()))
     e.phone = "Please enter a valid phone number with country code.";
   if (!v.country) e.country = "Please select your country.";
+  if (!v.budget) e.budget = v.country ? "Please choose a budget range." : "Select your country first, then choose a budget range.";
   const ids = interestOptions.map((o) => o.id as string);
   if (!v.interests.length || v.interests.some((i) => !ids.includes(i))) e.interests = "Please choose at least one option.";
   if (v.message.trim().length < 15) e.message = "Please share a few details (at least 15 characters).";
@@ -46,4 +50,4 @@ export function validateLead(v: LeadInput): LeadErrors {
 
 /** Hand-off from the form to the thank-you page (same browser tab). */
 export const THANKS_KEY = "candies-lead-thanks";
-export type ThanksPayload = { eventId: string; campaign: string; interests: string[]; firstName: string; reference: string; country: string };
+export type ThanksPayload = { eventId: string; campaign: string; interests: string[]; firstName: string; reference: string; country: string; currency: string };
